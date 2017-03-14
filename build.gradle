@@ -1,0 +1,31 @@
+apply plugin: "java"
+
+group = projectGroup
+version = projectVersion
+sourceCompatibility = projectSourceCompatibility
+
+repositories {
+    jcenter()
+
+	maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+	compileOnly "org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT"
+	compileOnly "org.bukkit:bukkit:1.11.2-R0.1-SNAPSHOT"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "plugin.yml"
+
+        expand "version": project.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "plugin.yml"
+    }
+}
