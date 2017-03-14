@@ -1,11 +1,6 @@
 package eu.crushedpixel.camerastudio;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -14,67 +9,62 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CameraStudio extends JavaPlugin implements Listener {
-	public static JavaPlugin instance;
-	static String prefix = ChatColor.AQUA + "[" + ChatColor.DARK_AQUA + "CP" + ChatColor.AQUA + "CameraStudio] "
-			+ ChatColor.GREEN;
-	static HashSet<UUID> travelling = new HashSet<UUID>();
-	static HashSet<UUID> stopping = new HashSet<UUID>();
+public class CameraStudio extends JavaPlugin {
 	
-	public void onDisable() {
-		getLogger().info("CameraStudio disabled");
+	// -------------------------------------------------- //
+	// INSTANCE
+	// -------------------------------------------------- // 
+	
+	private static CameraStudio instance = null;
+	public CameraStudio() { instance = this; }
+	public static CameraStudio get() { return instance; }
+	
+	// -------------------------------------------------- //
+	// STATIC FIELDS
+	// -------------------------------------------------- // 
+	
+	protected static String prefix = ChatColor.AQUA + "[CameraStudio] " + ChatColor.GREEN;
+	
+	protected static HashSet<UUID> travelling = new HashSet<UUID>();
+	protected static HashSet<UUID> stopping = new HashSet<UUID>();
+	
+	// -------------------------------------------------- //
+	// STATIC METHODS
+	// -------------------------------------------------- // 
+	
+	/**
+	 * Make a player travel between a list of locations, with no messages
+	 * @param player      Player to travel
+	 * @param locations   Locations to travel across
+	 * @param time        Time of executing
+	 */
+	public static void travel(Player player, List<Location> locations, Integer time) {
+		travel(player, locations, time, null, null);
 	}
-
-	public void onEnable() {
-		
-		instance = this;
-		
-		getServer().getPluginManager().registerEvents(this, this);
-		this.getCommand("cam").setExecutor(new CamCommand());
-		getConfig().options().copyDefaults(true);
-		saveConfig();
-		getLogger().info(prefix + "CPCameraStudioReborn has been enabled!");
-	}
-
-	public static double round(double unrounded, int precision) {
-		BigDecimal bd = new BigDecimal(unrounded);
-		BigDecimal rounded = bd.setScale(precision, 4);
-		return rounded.doubleValue();
-	}
-
-	@EventHandler
-	public void onPlayerJoined(final PlayerJoinEvent event) {
-		if (getConfig().getBoolean("show-join-message")) {
-			getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				public void run() {
-					event.getPlayer().sendMessage(
-							prefix + "This server is running the Camera Studio Plugin v1.0 by "
-									+ ChatColor.AQUA + "CrushedPixel");
-					event.getPlayer()
-							.sendMessage(prefix + ChatColor.YELLOW + "http://youtube.com/CrushedPixel");
-				}
-			}, 10L);
-		}
-	}
-
-	public static void travel(Player player, List<Location> locations, int time, String FailMessage, String CompletedMessage) {
+	
+	/**
+	 * Make a player travel between a list of locations, with messages
+	 * @param player      Player to travel
+	 * @param locations   Locations to travel across
+	 * @param time        Time of executing
+	 */
+	public static void travel(Player player, List<Location> locations, Integer time, String failMessage, String completedMessage) {
 		List<Double> diffs = new ArrayList<Double>();
 		List<Integer> travelTimes = new ArrayList<Integer>();
 
-		double totalDiff = 0.0D;
+		Double totalDiff = 0.0D;
 
 		for (int i = 0; i < locations.size() - 1; i++) {
 			Location s = (Location) locations.get(i);
 			Location n = (Location) locations.get(i + 1);
-			double diff = CameraStudio.positionDifference(s, n);
+			
+			Double diff = Util.positionDifference(s, n);
 			totalDiff += diff;
-			diffs.add(Double.valueOf(diff));
+			diffs.add(diff);
 		}
 
 		for (Iterator<Double> n = diffs.iterator(); n.hasNext();) {
@@ -84,7 +74,7 @@ public class CameraStudio extends JavaPlugin implements Listener {
 
 		final List<Location> tps = new ArrayList<Location>();
 
-		org.bukkit.World w = player.getWorld();
+		World world = player.getWorld();
 
 		for (int i = 0; i < locations.size() - 1; i++) {
 			Location s = (Location) locations.get(i);
@@ -114,7 +104,7 @@ public class CameraStudio extends JavaPlugin implements Listener {
 			double d = c / t;
 
 			for (int x = 0; x < t; x++) {
-				Location l = new Location(w, s.getX() + moveX / t * x, s.getY() + moveY / t * x,
+				Location l = new Location(world, s.getX() + moveX / t * x, s.getY() + moveY / t * x,
 						s.getZ() + moveZ / t * x, (float) (s.getYaw() + d * x),
 						(float) (s.getPitch() + movePitch / t * x));
 				tps.add(l);
@@ -127,7 +117,7 @@ public class CameraStudio extends JavaPlugin implements Listener {
 			player.teleport((Location) tps.get(0));
 			player.setFlying(true);
 			travelling.add(player.getUniqueId());
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(CameraStudio.instance, new Runnable() {
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(CameraStudio.get(), new Runnable() {
 				private int ticks = 0;
 
 				public void run() {
@@ -137,7 +127,7 @@ public class CameraStudio extends JavaPlugin implements Listener {
 
 						if (!stopping.contains(player.getUniqueId())) {
 							Bukkit.getServer().getScheduler()
-									.scheduleSyncDelayedTask(CameraStudio.instance, this, 1L);
+									.scheduleSyncDelayedTask(CameraStudio.get(), this, 1L);
 						} else {
 							stopping.remove(player.getUniqueId());
 							travelling.remove(player.getUniqueId());
@@ -146,103 +136,71 @@ public class CameraStudio extends JavaPlugin implements Listener {
 						this.ticks += 1;
 					} else {
 						travelling.remove(player.getUniqueId());
-						if (CompletedMessage != null) player.sendMessage(CompletedMessage);
+						
+						if (completedMessage != null) {
+							player.sendMessage(completedMessage);
+						}
 					}
 				}
 			});
 		} catch (Exception e) {
-			if (FailMessage != null) player.sendMessage(FailMessage);
-		}
-	}
-	
-	public static int parseTimeString(String timeString) throws java.text.ParseException {
-		Date length;
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("mm'm'ss's'");
-			length = formatter.parse(timeString);
-		} catch (Exception e) {
-			try {
-				SimpleDateFormat formatter = new SimpleDateFormat("m'm'ss's'");
-				length = formatter.parse(timeString);
-			} catch (Exception e1) {
-				try {
-					SimpleDateFormat formatter = new SimpleDateFormat("m'm's's'");
-					length = formatter.parse(timeString);
-				} catch (Exception e2) {
-					try {
-						SimpleDateFormat formatter = new SimpleDateFormat("mm'm's's'");
-						length = formatter.parse(timeString);
-					} catch (Exception e3) {
-						try {
-							SimpleDateFormat formatter = new SimpleDateFormat("mm'm'");
-							length = formatter.parse(timeString);
-						} catch (Exception e4) {
-							try {
-								SimpleDateFormat formatter = new SimpleDateFormat("m'm'");
-								length = formatter.parse(timeString);
-							} catch (Exception e5) {
-								try {
-									SimpleDateFormat formatter = new SimpleDateFormat("s's'");
-									length = formatter.parse(timeString);
-								} catch (Exception e6) {
-									SimpleDateFormat formatter = new SimpleDateFormat("ss's'");
-									length = formatter.parse(timeString);
-								}
-							}
-						}
-					}
-				}
+			if (failMessage != null) {
+				player.sendMessage(failMessage);
 			}
 		}
-
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.setTime(length);
-
-		int time = (cal.get(12) * 60 + cal.get(13)) * 20;
-		
-		return time;
 	}
 	
-	public static double positionDifference(Location cLoc, Location eLoc) {
-		double cX = cLoc.getX();
-		double cY = cLoc.getY();
-		double cZ = cLoc.getZ();
-
-		double eX = eLoc.getX();
-		double eY = eLoc.getY();
-		double eZ = eLoc.getZ();
-
-		double dX = eX - cX;
-		if (dX < 0.0D) {
-			dX = -dX;
-		}
-		double dZ = eZ - cZ;
-		if (dZ < 0.0D) {
-			dZ = -dZ;
-		}
-		double dXZ = Math.hypot(dX, dZ);
-
-		double dY = eY - cY;
-		if (dY < 0.0D) {
-			dY = -dY;
-		}
-		double dXYZ = Math.hypot(dXZ, dY);
-
-		return dXYZ;
+	/**
+	 * Is a player travelling?
+	 * @param player
+	 * @return true if travelling
+	 */
+	public static boolean isTravelling(Player player) {
+		return isTravelling(player.getUniqueId());
 	}
 	
-	public static boolean isTravelling(UUID PlayerUUID) {
-		if (travelling.contains(PlayerUUID)) return true;
+	/**
+	 * Is a player travelling?
+	 * @param playerId
+	 * @return true if travelling
+	 */
+	public static boolean isTravelling(UUID playerId) {
+		if (travelling.contains(playerId)) return true;
 		return false;
 	}
 	
-	public static void stop(UUID PlayerUUID) {
-		stopping.add(PlayerUUID);
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(CameraStudio.instance, new Runnable() {
+	/**
+	 * Stop a player travelling
+	 * @param player to stop
+	 */
+	public static void stop(Player player) {
+		stop(player.getUniqueId());
+	}
+	
+	/**
+	 * Stop a player travelling
+	 * @param player id to stop
+	 */
+	public static void stop(UUID playerId) {
+		stopping.add(playerId);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(CameraStudio.get(), new Runnable() {
 			public void run() {
-				stopping.remove(PlayerUUID);
+				stopping.remove(playerId);
 			}
 		}, 2L);
+	}
+	
+	// -------------------------------------------------- //
+	// PLUGIN METHODS
+	// -------------------------------------------------- // 
+	
+	// Plugin enable
+	@Override
+	public void onEnable() {	
+		this.getConfig().options().copyDefaults(true);
+		this.saveConfig();
+		
+		this.getCommand("cam").setExecutor(CmdCam.get());
 	}
 	
 }
