@@ -14,6 +14,9 @@ repositories {
 dependencies {
 	compileOnly "org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT"
 	compileOnly "org.bukkit:bukkit:1.11.2-R0.1-SNAPSHOT"
+	
+	compile fileTree(dir: 'lib/shadow', include: ['*.jar'])
+	
 }
 
 processResources {
@@ -29,3 +32,23 @@ processResources {
         exclude "plugin.yml"
     }
 }
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+shadowJar {
+	dependencies {
+		include(dependency(fileTree(dir: 'lib/shadow', include: ['*.jar'])))
+	}
+	relocate "net.redstoneore.rson", "net.redstoneore.rcamerastudio.shadow.rson"
+}
+
+build.finalizedBy(shadowJar)

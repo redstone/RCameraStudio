@@ -5,11 +5,11 @@ version: ${version}
 
 commands:
   cam:
-    description: The main command for CPCameraStudio.
+    description: The main command for CameraStudio.
     usage: /<command> <subcommand> [args]
     permission: camerastudio
     permission-message: You don't have permission to execute this command!
-  cam p:
+  cam point:
     description: Adds the current location to the Camera Path.
     usage: /<command>
     permission: camerastudio.point

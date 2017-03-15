@@ -1,3 +1,22 @@
+/**
+ *  RCamera Studio is a developer friendly version of CPCameraStudioReborn
+ *  Copyright (C) 2017  Mark Hughes <m@rkhugh.es>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package eu.crushedpixel.camerastudio;
 
 import java.util.ArrayList;
@@ -13,11 +32,14 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.crushedpixel.camerastudio.cmd.CommandManager;
+
+
 public class CameraStudio extends JavaPlugin {
 	
 	// -------------------------------------------------- //
 	// INSTANCE
-	// -------------------------------------------------- // 
+	// -------------------------------------------------- //
 	
 	private static CameraStudio instance = null;
 	public CameraStudio() { instance = this; }
@@ -25,17 +47,25 @@ public class CameraStudio extends JavaPlugin {
 	
 	// -------------------------------------------------- //
 	// STATIC FIELDS
-	// -------------------------------------------------- // 
+	// -------------------------------------------------- //
 	
-	protected static String prefix = ChatColor.AQUA + "[CameraStudio] " + ChatColor.GREEN;
+	public static final String prefix = ChatColor.AQUA + "[CameraStudio] " + ChatColor.GREEN;
 	
 	protected static HashSet<UUID> travelling = new HashSet<UUID>();
 	protected static HashSet<UUID> stopping = new HashSet<UUID>();
 	
 	// -------------------------------------------------- //
 	// STATIC METHODS
-	// -------------------------------------------------- // 
+	// -------------------------------------------------- //
 	
+	public static void travel(Player player, List<Location> locations, Integer time, Boolean silent) {
+		if (silent) {
+			travel(player, locations, time);
+		} else {
+			travel(player, locations, time, ChatColor.RED + "An error occured during traveling", "");
+		}
+	}
+
 	/**
 	 * Make a player travel between a list of locations, with no messages
 	 * @param player      Player to travel
@@ -196,11 +226,8 @@ public class CameraStudio extends JavaPlugin {
 	
 	// Plugin enable
 	@Override
-	public void onEnable() {	
-		this.getConfig().options().copyDefaults(true);
-		this.saveConfig();
-		
-		this.getCommand("cam").setExecutor(CmdCam.get());
+	public void onEnable() {			
+		this.getServer().getPluginManager().registerEvents(CommandManager.get(), this);
 	}
 	
 }
