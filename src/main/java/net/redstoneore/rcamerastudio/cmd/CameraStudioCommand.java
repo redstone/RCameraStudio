@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import eu.crushedpixel.camerastudio.Points;
+import net.redstoneore.rcamerastudio.Points;
 
 public abstract class CameraStudioCommand<T> {
 
@@ -54,6 +54,7 @@ public abstract class CameraStudioCommand<T> {
 	
 	private List<String> aliases = new ArrayList<String>();
 	private String permission = null;
+	private String desc = "";
 	private List<String> requiredArguments = new ArrayList<String>();
 	private List<String> optionalArguments = new ArrayList<String>();
 	
@@ -85,6 +86,15 @@ public abstract class CameraStudioCommand<T> {
 		if (this.permission == null) return Optional.empty();
 		
 		return Optional.of(this.permission);
+	}
+	
+	// description
+	public void description(String desc) {
+		this.desc = desc;
+	}
+	
+	public String description() {
+		return this.desc;
 	}
 	
 	// sub commands

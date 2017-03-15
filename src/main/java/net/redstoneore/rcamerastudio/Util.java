@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio;
+package net.redstoneore.rcamerastudio;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;

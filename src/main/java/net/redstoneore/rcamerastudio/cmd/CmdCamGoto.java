@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 public class CmdCamGoto extends CameraStudioCommand<CmdCamGoto> {
 
@@ -6,8 +6,8 @@ public class CmdCamGoto extends CameraStudioCommand<CmdCamGoto> {
 	public static CmdCamGoto get() { return instance; }
 	
 	public CmdCamGoto() {
-		this.aliases("g", "goto");
-		
+		this.aliases("goto");
+		this.description("teleport to an already defined point");
 		this.reqArg("point");
 	}
 	

@@ -1,8 +1,8 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 import org.bukkit.Location;
 
-import eu.crushedpixel.camerastudio.Util;
+import net.redstoneore.rcamerastudio.Util;
 
 public class CmdCamList extends CameraStudioCommand<CmdCamList> {
 
@@ -10,7 +10,8 @@ public class CmdCamList extends CameraStudioCommand<CmdCamList> {
 	public static CmdCamList get() { return instance; }
 	
 	public CmdCamList() {
-		this.aliases("l", "list");
+		this.aliases("list");
+		this.description("list of defined points");
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 import org.bukkit.entity.Player;
 
@@ -9,7 +9,8 @@ public class CmdCamPoint extends CameraStudioCommand<CmdCamPoint> {
 	public static CmdCamPoint get() { return instance; }
 	
 	public CmdCamPoint() {
-		this.aliases("p", "point");
+		this.aliases("point", "p");
+		this.description("store a point");
 	}
 
 	@Override

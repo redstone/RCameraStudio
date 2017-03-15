@@ -1,9 +1,9 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
-import eu.crushedpixel.camerastudio.CameraStudio;
-import eu.crushedpixel.camerastudio.Util;
-import eu.crushedpixel.camerastudio.replay.Replay;
-import eu.crushedpixel.camerastudio.replay.Replays;
+import net.redstoneore.rcamerastudio.RCameraStudio;
+import net.redstoneore.rcamerastudio.Util;
+import net.redstoneore.rcamerastudio.replay.Replay;
+import net.redstoneore.rcamerastudio.replay.Replays;
 
 public class CmdCamReplay extends CameraStudioCommand<CmdCamReplay> {
 
@@ -12,6 +12,8 @@ public class CmdCamReplay extends CameraStudioCommand<CmdCamReplay> {
 	
 	public CmdCamReplay() {
 		this.aliases("replay");
+		this.description("run a replay without loading it");
+		
 		this.permission("camerastudio.replay");
 		
 		this.reqArg("name");
@@ -44,7 +46,7 @@ public class CmdCamReplay extends CameraStudioCommand<CmdCamReplay> {
 		
 		Boolean silent = this.arg(Boolean.class, 2, false);
 		
-		CameraStudio.travel(this.player().get(), replay.points, time, silent);
+		RCameraStudio.travel(this.player().get(), replay.points, time, silent);
 	}
 	
 }

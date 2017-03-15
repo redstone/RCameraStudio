@@ -1,6 +1,6 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
-import eu.crushedpixel.camerastudio.CameraStudio;
+import net.redstoneore.rcamerastudio.RCameraStudio;
 
 public class CmdCamStop extends CameraStudioCommand<CmdCamStop> {
 
@@ -9,11 +9,12 @@ public class CmdCamStop extends CameraStudioCommand<CmdCamStop> {
 	
 	public CmdCamStop() {
 		this.aliases("stop");
+		this.description("stop travelling");
 	}
 
 	@Override
 	public void exec() {
-		CameraStudio.stop(this.player().get());
+		RCameraStudio.stop(this.player().get());
 		msg(GREEN, "Travelling has been cancelled");
 	}
 	

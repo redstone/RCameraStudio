@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.replay;
+package net.redstoneore.rcamerastudio.replay;
 
 import java.util.ArrayList;
 import java.util.List;

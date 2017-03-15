@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 public class CmdCamRemove extends CameraStudioCommand<CmdCamRemove> {
 
@@ -6,7 +6,9 @@ public class CmdCamRemove extends CameraStudioCommand<CmdCamRemove> {
 	public static CmdCamRemove get() { return instance; }
 	
 	public CmdCamRemove() {
-		this.aliases("rem", "remove");
+		this.aliases("remove");
+		this.description("remove a point");
+		
 		this.optArg("number");
 	}
 	

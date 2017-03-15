@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 public class CmdCam extends CameraStudioCommand<CmdCam> {
 
@@ -10,6 +10,7 @@ public class CmdCam extends CameraStudioCommand<CmdCam> {
 			"cam",
 			"camerastudio"
 		);
+		this.description("base command for RCameraStudio");
 		this.permission("camerastudio.use");
 		
 		this.subcommands(

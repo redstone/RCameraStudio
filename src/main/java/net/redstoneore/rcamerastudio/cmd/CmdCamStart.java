@@ -1,11 +1,11 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 import java.util.List;
 
 import org.bukkit.Location;
 
-import eu.crushedpixel.camerastudio.CameraStudio;
-import eu.crushedpixel.camerastudio.Util;
+import net.redstoneore.rcamerastudio.RCameraStudio;
+import net.redstoneore.rcamerastudio.Util;
 
 public class CmdCamStart extends CameraStudioCommand<CmdCamStart> {
 	
@@ -14,6 +14,7 @@ public class CmdCamStart extends CameraStudioCommand<CmdCamStart> {
 
 	public CmdCamStart() {
 		this.aliases("start");
+		this.description("start traveling the current defined points");
 		
 		this.optArg("duration");
 		this.optArg("silent");		
@@ -32,7 +33,7 @@ public class CmdCamStart extends CameraStudioCommand<CmdCamStart> {
 		
 		Boolean silent = this.arg(Boolean.class, 1, false);
 		
-		if (CameraStudio.isTravelling(this.player().get())) {
+		if (RCameraStudio.isTravelling(this.player().get())) {
 			msg(RED, "You are already travelling");
 			return;
 		}
@@ -44,7 +45,7 @@ public class CmdCamStart extends CameraStudioCommand<CmdCamStart> {
 		
 		List<Location> locations = this.points().get().getAll();
 		
-		CameraStudio.travel(this.player().get(), locations, time, silent);
+		RCameraStudio.travel(this.player().get(), locations, time, silent);
 	}
 	
 }

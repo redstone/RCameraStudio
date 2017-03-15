@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
 public class CmdCamReset extends CameraStudioCommand<CmdCamReset> {
 
@@ -6,7 +6,8 @@ public class CmdCamReset extends CameraStudioCommand<CmdCamReset> {
 	public static CmdCamReset get() { return instance; }
 	
 	public CmdCamReset() {
-		this.aliases("res", "reset");
+		this.aliases("reset");
+		this.description("reset current points");
 	}
 
 	@Override

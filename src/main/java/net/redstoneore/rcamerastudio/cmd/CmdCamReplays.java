@@ -1,7 +1,7 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
-import eu.crushedpixel.camerastudio.replay.Replay;
-import eu.crushedpixel.camerastudio.replay.Replays;
+import net.redstoneore.rcamerastudio.replay.Replay;
+import net.redstoneore.rcamerastudio.replay.Replays;
 
 public class CmdCamReplays extends CameraStudioCommand<CmdCamReplays> {
 	
@@ -10,6 +10,7 @@ public class CmdCamReplays extends CameraStudioCommand<CmdCamReplays> {
 	
 	public CmdCamReplays() {
 		this.aliases("replays");
+		this.description("list saved replays");
 		this.permission("camerastudio.replay");
 	}
 	

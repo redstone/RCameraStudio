@@ -1,6 +1,6 @@
-package eu.crushedpixel.camerastudio.cmd;
+package net.redstoneore.rcamerastudio.cmd;
 
-import eu.crushedpixel.camerastudio.replay.Replays;
+import net.redstoneore.rcamerastudio.replay.Replays;
 
 public class CmdCamLoad extends CameraStudioCommand<CmdCamLoad> {
 
@@ -9,6 +9,7 @@ public class CmdCamLoad extends CameraStudioCommand<CmdCamLoad> {
 	
 	public CmdCamLoad() {
 		this.aliases("load");
+		this.description("load points from a replay");
 		
 		this.reqArg("name");
 		

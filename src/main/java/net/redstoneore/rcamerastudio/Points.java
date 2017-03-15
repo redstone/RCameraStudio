@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio;
+package net.redstoneore.rcamerastudio;
 
 import java.util.ArrayList;
 import java.util.HashMap;

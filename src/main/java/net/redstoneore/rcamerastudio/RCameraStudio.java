@@ -17,7 +17,7 @@
  *
  */
 
-package eu.crushedpixel.camerastudio;
+package net.redstoneore.rcamerastudio;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,18 +32,18 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import eu.crushedpixel.camerastudio.cmd.CommandManager;
+import net.redstoneore.rcamerastudio.cmd.CommandManager;
 
 
-public class CameraStudio extends JavaPlugin {
+public class RCameraStudio extends JavaPlugin {
 	
 	// -------------------------------------------------- //
 	// INSTANCE
 	// -------------------------------------------------- //
 	
-	private static CameraStudio instance = null;
-	public CameraStudio() { instance = this; }
-	public static CameraStudio get() { return instance; }
+	private static RCameraStudio instance = null;
+	public RCameraStudio() { instance = this; }
+	public static RCameraStudio get() { return instance; }
 	
 	// -------------------------------------------------- //
 	// STATIC FIELDS
@@ -147,7 +147,7 @@ public class CameraStudio extends JavaPlugin {
 			player.teleport((Location) tps.get(0));
 			player.setFlying(true);
 			travelling.add(player.getUniqueId());
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(CameraStudio.get(), new Runnable() {
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(RCameraStudio.get(), new Runnable() {
 				private int ticks = 0;
 
 				public void run() {
@@ -157,7 +157,7 @@ public class CameraStudio extends JavaPlugin {
 
 						if (!stopping.contains(player.getUniqueId())) {
 							Bukkit.getServer().getScheduler()
-									.scheduleSyncDelayedTask(CameraStudio.get(), this, 1L);
+									.scheduleSyncDelayedTask(RCameraStudio.get(), this, 1L);
 						} else {
 							stopping.remove(player.getUniqueId());
 							travelling.remove(player.getUniqueId());
@@ -213,7 +213,7 @@ public class CameraStudio extends JavaPlugin {
 	 */
 	public static void stop(UUID playerId) {
 		stopping.add(playerId);
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(CameraStudio.get(), new Runnable() {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(RCameraStudio.get(), new Runnable() {
 			public void run() {
 				stopping.remove(playerId);
 			}

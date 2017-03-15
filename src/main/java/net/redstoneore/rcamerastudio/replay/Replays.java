@@ -1,4 +1,4 @@
-package eu.crushedpixel.camerastudio.replay;
+package net.redstoneore.rcamerastudio.replay;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import eu.crushedpixel.camerastudio.CameraStudio;
+import net.redstoneore.rcamerastudio.RCameraStudio;
 
 public class Replays {
 
@@ -20,7 +20,7 @@ public class Replays {
 	// -------------------------------------------------- //
 	
 	private static Map<String, Replay> replays = null;
-	private static Path dir = Paths.get(CameraStudio.get().getDataFolder().toString(), "replays");
+	private static Path dir = Paths.get(RCameraStudio.get().getDataFolder().toString(), "replays");
 
 	// -------------------------------------------------- //
 	// METHODS
