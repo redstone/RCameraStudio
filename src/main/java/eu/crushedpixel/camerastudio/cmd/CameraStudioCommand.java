@@ -67,7 +67,7 @@ public abstract class CameraStudioCommand<T> {
 	
 	// aliases
 	public void aliases(String... aliases) {
-		for(String alias : aliases) {
+		for (String alias : aliases) {
 			this.aliases.add(alias);
 		}
 	}
@@ -121,6 +121,7 @@ public abstract class CameraStudioCommand<T> {
 	// -------------------------------------------------- // 
 
 	public Optional<CameraStudioCommand<?>> parent() {
+		if (this.parent == null) return Optional.empty();
 		return Optional.of(this.parent);
 	}
 	
@@ -155,6 +156,7 @@ public abstract class CameraStudioCommand<T> {
 				for (String alias : command.aliases()) {
 					if(alias.equalsIgnoreCase(potentialCommand)) {
 						arguments.remove(0);
+						command.parent = this;
 						command.preExec(sender, arguments);
 						return;
 					}
