@@ -25,7 +25,7 @@ public class CmdCamLoad extends CameraStudioCommand<CmdCamLoad> {
 			return;
 		}
 		
-		this.points().get().pointsList = Replays.get(name).get().points;
+		this.traveller().get().set(Replays.get(name).get().points);
 		msg(GREEN, name + " loaded!");
 
 	}

@@ -33,17 +33,17 @@ public class CmdCamStart extends CameraStudioCommand<CmdCamStart> {
 		
 		Boolean silent = this.arg(Boolean.class, 1, false);
 		
-		if (RCameraStudio.isTravelling(this.player().get())) {
+		if (this.traveller().get().travelling()) {
 			msg(RED, "You are already travelling");
 			return;
 		}
 		
-		if (this.points().get().size() == 0) {
+		if (this.traveller().get().size() == 0) {
 			msg(RED, "There are no points set yet.");
 			return;
 		}
 		
-		List<Location> locations = this.points().get().getAll();
+		List<Location> locations = this.traveller().get().getAll();
 		
 		RCameraStudio.travel(this.player().get(), locations, time, silent);
 	}

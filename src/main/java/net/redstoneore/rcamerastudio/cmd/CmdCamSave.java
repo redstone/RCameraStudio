@@ -24,12 +24,12 @@ public class CmdCamSave extends CameraStudioCommand<CmdCamSave> {
 		try {
 			if (Replays.get(name).isPresent()) {
 				Replay replay = Replays.get(name).get();
-				replay.points = this.points().get().getAll();
+				replay.points = this.traveller().get().getAll();
 				replay.save();
 				msg(GREEN, "Replay ", AQUA, name, GREEN, " updated.");
 			} else {
 				Replay replay = Replays.create(name);
-				replay.points = this.points().get().getAll();
+				replay.points = this.traveller().get().getAll();
 				replay.save();
 				msg(GREEN, "Created replay ", AQUA, name);
 			}

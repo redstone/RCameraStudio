@@ -9,16 +9,16 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class Points {
+public class Traveller {
 
 	// --------------------------------------------------
 	// STATIC
 	// --------------------------------------------------
 
-	private static Map<UUID, Points> pointsMap = new HashMap<UUID, Points>();
-	public static Points get(Player player) {
+	private static Map<UUID, Traveller> pointsMap = new HashMap<UUID, Traveller>();
+	public static Traveller get(Player player) {
 		if (!pointsMap.containsKey(player.getUniqueId())) {
-			pointsMap.put(player.getUniqueId(), new Points(player));
+			pointsMap.put(player.getUniqueId(), new Traveller(player));
 		}
 		return pointsMap.get(player.getUniqueId());
 	}
@@ -26,7 +26,7 @@ public class Points {
 	// CONSTRUCT
 	// --------------------------------------------------
 	
-	protected Points(Player player) {
+	protected Traveller(Player player) {
 		this.player = player;
 	}
 	
@@ -36,7 +36,9 @@ public class Points {
 	
 	private final Player player;
 	
-	public List<Location> pointsList = new ArrayList<Location>();
+	private List<Location> pointsList = new ArrayList<Location>();
+	
+	private Boolean travelling = false;
 	
 	// --------------------------------------------------
 	// METHODS
@@ -68,6 +70,18 @@ public class Points {
 
 	public Location get(int i) {
 		return this.pointsList.get(i);
+	}
+
+	public void set(List<Location> pointsList) {
+		this.pointsList = pointsList;
+	}
+	
+	public void travelling(Boolean travelling) {
+		this.travelling = travelling;
+	}
+	
+	public Boolean travelling() {
+		return this.travelling;
 	}
 	
 }

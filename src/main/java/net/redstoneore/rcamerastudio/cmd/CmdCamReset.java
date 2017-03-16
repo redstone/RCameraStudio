@@ -12,7 +12,7 @@ public class CmdCamReset extends CameraStudioCommand<CmdCamReset> {
 
 	@Override
 	public void exec() {
-		this.points().get().clear();
+		this.traveller().get().clear();
 		msg(GREEN, "Successfully removed all points");
 	}
 	

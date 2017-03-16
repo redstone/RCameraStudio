@@ -20,10 +20,8 @@
 package net.redstoneore.rcamerastudio;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.redstoneore.rcamerastudio.cmd.CommandManager;
-
 
 public class RCameraStudio extends JavaPlugin {
 	
@@ -50,10 +47,7 @@ public class RCameraStudio extends JavaPlugin {
 	// -------------------------------------------------- //
 	
 	public static final String prefix = ChatColor.AQUA + "[CameraStudio] " + ChatColor.GREEN;
-	
-	protected static HashSet<UUID> travelling = new HashSet<UUID>();
-	protected static HashSet<UUID> stopping = new HashSet<UUID>();
-	
+		
 	// -------------------------------------------------- //
 	// STATIC METHODS
 	// -------------------------------------------------- //
@@ -146,7 +140,9 @@ public class RCameraStudio extends JavaPlugin {
 			player.setAllowFlight(true);
 			player.teleport((Location) tps.get(0));
 			player.setFlying(true);
-			travelling.add(player.getUniqueId());
+			
+			Traveller.get(player).travelling(true);
+			
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(RCameraStudio.get(), new Runnable() {
 				private int ticks = 0;
 
@@ -155,17 +151,13 @@ public class RCameraStudio extends JavaPlugin {
 
 						player.teleport((Location) tps.get(this.ticks));
 
-						if (!stopping.contains(player.getUniqueId())) {
+						if (Traveller.get(player).travelling()) {
 							Bukkit.getServer().getScheduler()
 									.scheduleSyncDelayedTask(RCameraStudio.get(), this, 1L);
-						} else {
-							stopping.remove(player.getUniqueId());
-							travelling.remove(player.getUniqueId());
-						}
-
+						} 
 						this.ticks += 1;
 					} else {
-						travelling.remove(player.getUniqueId());
+						Traveller.get(player).travelling(false);
 						
 						if (completedMessage != null) {
 							player.sendMessage(completedMessage);
@@ -180,45 +172,6 @@ public class RCameraStudio extends JavaPlugin {
 		}
 	}
 	
-	/**
-	 * Is a player travelling?
-	 * @param player
-	 * @return true if travelling
-	 */
-	public static boolean isTravelling(Player player) {
-		return isTravelling(player.getUniqueId());
-	}
-	
-	/**
-	 * Is a player travelling?
-	 * @param playerId
-	 * @return true if travelling
-	 */
-	public static boolean isTravelling(UUID playerId) {
-		if (travelling.contains(playerId)) return true;
-		return false;
-	}
-	
-	/**
-	 * Stop a player travelling
-	 * @param player to stop
-	 */
-	public static void stop(Player player) {
-		stop(player.getUniqueId());
-	}
-	
-	/**
-	 * Stop a player travelling
-	 * @param player id to stop
-	 */
-	public static void stop(UUID playerId) {
-		stopping.add(playerId);
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(RCameraStudio.get(), new Runnable() {
-			public void run() {
-				stopping.remove(playerId);
-			}
-		}, 2L);
-	}
 	
 	// -------------------------------------------------- //
 	// PLUGIN METHODS

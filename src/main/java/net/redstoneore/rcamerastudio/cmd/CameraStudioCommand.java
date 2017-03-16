@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.redstoneore.rcamerastudio.Points;
+import net.redstoneore.rcamerastudio.Traveller;
 
 public abstract class CameraStudioCommand<T> {
 
@@ -212,8 +212,8 @@ public abstract class CameraStudioCommand<T> {
 		return Optional.of((Player) this.sender());
 	}
 	
-	public Optional<Points> points() {
-		return Optional.of(Points.get(this.player().orElse(null)));
+	public Optional<Traveller> traveller() {
+		return Optional.of(Traveller.get(this.player().orElse(null)));
 	}
 	
 	public List<String> args() {

@@ -17,9 +17,9 @@ public class CmdCamPoint extends CameraStudioCommand<CmdCamPoint> {
 	public void exec() {
 		Player player = this.player().get();
 		
-		this.points().get().add(player.getLocation());
+		this.traveller().get().add(player.getLocation());
 		
-		msg(GREEN, "Point ", AQUA, this.points().get().size(), GREEN, " has been set.");
+		msg(GREEN, "Point ", AQUA, this.traveller().get().size(), GREEN, " has been set.");
 		
 	}
 	
