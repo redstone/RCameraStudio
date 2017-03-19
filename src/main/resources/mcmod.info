@@ -1,0 +1,9 @@
+[{
+    "modid": "rcamerastudio",
+    "name": "RCameraStudio",
+    "version": "${version}",
+    "description": "This plugin gives server owners the ability to control a players camera server-side.",
+    "authorList": [
+        "MarkehMe"
+    ]
+}]

@@ -9,7 +9,7 @@ import net.redstoneore.rson.Rson;
 
 public class ConfigBuilder extends Rson<Config> {
 
-	protected static transient Path configPath = Paths.get(RCameraStudioBukkit.get().getDataFolder().toString(), "config.json");
+	public static transient Path configPath = null;
 	
 	private static transient Config instance = null;
 	

@@ -19,10 +19,12 @@
 
 package net.redstoneore.rcamerastudio.bukkit;
 
-import org.bukkit.ChatColor;
+import java.nio.file.Paths;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.redstoneore.rcamerastudio.Travellers;
+import net.redstoneore.rcamerastudio.config.ConfigBuilder;
 
 public class RCameraStudioBukkit extends JavaPlugin {
 	
@@ -33,13 +35,7 @@ public class RCameraStudioBukkit extends JavaPlugin {
 	private static RCameraStudioBukkit instance = null;
 	public RCameraStudioBukkit() { instance = this; }
 	public static RCameraStudioBukkit get() { return instance; }
-	
-	// -------------------------------------------------- //
-	// STATIC FIELDS
-	// -------------------------------------------------- //
-	
-	public static final String prefix = ChatColor.AQUA + "[CameraStudio] " + ChatColor.GREEN;
-	
+		
 	// -------------------------------------------------- //
 	// PLUGIN METHODS
 	// -------------------------------------------------- // 
@@ -47,6 +43,8 @@ public class RCameraStudioBukkit extends JavaPlugin {
 	// Plugin enable
 	@Override
 	public void onEnable() {	
+		ConfigBuilder.configPath = Paths.get(this.getDataFolder().toString(), "config.json");
+		
 		Travellers.impl(new BukkitTravellers());
 		
 		this.getServer().getPluginManager().registerEvents(BukkitCommandManager.get(), this);
