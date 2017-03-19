@@ -1,11 +1,10 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-import net.redstoneore.rcamerastudio.RCameraStudio;
 import net.redstoneore.rcamerastudio.Util;
 import net.redstoneore.rcamerastudio.replay.Replay;
 import net.redstoneore.rcamerastudio.replay.Replays;
 
-public class CmdCamReplay extends CameraStudioCommand<CmdCamReplay> {
+public class CmdCamReplay extends CameraStudioPlayerCommand<CmdCamReplay> {
 
 	private static CmdCamReplay instance = new CmdCamReplay();
 	public static CmdCamReplay get() { return instance; }
@@ -46,7 +45,7 @@ public class CmdCamReplay extends CameraStudioCommand<CmdCamReplay> {
 		
 		Boolean silent = this.arg(Boolean.class, 2, false);
 		
-		RCameraStudio.travel(this.player().get(), replay.points, time, silent);
+		this.getTraveller().travel(replay.points, time, silent);
 	}
 	
 }

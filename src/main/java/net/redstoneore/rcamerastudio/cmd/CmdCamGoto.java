@@ -1,6 +1,6 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-public class CmdCamGoto extends CameraStudioCommand<CmdCamGoto> {
+public class CmdCamGoto extends CameraStudioPlayerCommand<CmdCamGoto> {
 
 	private static CmdCamGoto instance = new CmdCamGoto();
 	public static CmdCamGoto get() { return instance; }
@@ -13,25 +13,25 @@ public class CmdCamGoto extends CameraStudioCommand<CmdCamGoto> {
 	
 	@Override
 	public void exec() {
-		if (this.traveller().get().size() == 0) {
+		if (this.getTraveller().size() == 0) {
 			msg(RED, "You don't have any points set yet.");
 			return;
 		}
 		
 		Integer point = this.arg(Integer.class, 0, null);
-		if (point == null) {
-			msg(RED, this.arg(String.class, 0, "?"), " is not a number");
+		if (point == null || point < 1) {
+			msg(RED, this.arg(String.class, 0, "?"), " is not a valid number.");
 			return;
 		}
 		
-		if (this.traveller().get().size() < point) {
-			msg(RED, "Point ", AQUA, point, RED, " does not exist, you only have ",  this.traveller().get().size(), " points.");
+		if (this.getTraveller().size() < point) {
+			msg(RED, "Point ", AQUA, point, RED, " does not exist, you only have ",  this.getTraveller().size(), " points.");
 			return;
 		}
 		
-		this.player().get().teleport(this.traveller().get().get(point -1));
+		this.getTraveller().teleport(this.getTraveller().get(point -1));
 		
-		msg(GREEN, "Teleported to point ", point);
+		msg(GREEN, "Teleported to point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().size());
 	}
 
 }

@@ -2,7 +2,7 @@ package net.redstoneore.rcamerastudio.cmd;
 
 import net.redstoneore.rcamerastudio.replay.Replays;
 
-public class CmdCamLoad extends CameraStudioCommand<CmdCamLoad> {
+public class CmdCamLoad extends CameraStudioPlayerCommand<CmdCamLoad> {
 
 	private static CmdCamLoad instance = new CmdCamLoad();
 	public static CmdCamLoad get() { return instance; }
@@ -25,7 +25,7 @@ public class CmdCamLoad extends CameraStudioCommand<CmdCamLoad> {
 			return;
 		}
 		
-		this.traveller().get().set(Replays.get(name).get().points);
+		this.getTraveller().set(Replays.get(name));
 		msg(GREEN, name + " loaded!");
 
 	}

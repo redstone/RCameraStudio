@@ -1,9 +1,6 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-import org.bukkit.entity.Player;
-
-
-public class CmdCamPoint extends CameraStudioCommand<CmdCamPoint> {
+public class CmdCamPoint extends CameraStudioPlayerCommand<CmdCamPoint> {
 
 	private static CmdCamPoint instance = new CmdCamPoint();
 	public static CmdCamPoint get() { return instance; }
@@ -15,12 +12,9 @@ public class CmdCamPoint extends CameraStudioCommand<CmdCamPoint> {
 
 	@Override
 	public void exec() {
-		Player player = this.player().get();
+		this.getTraveller().add(this.getTraveller().getLoc());
 		
-		this.traveller().get().add(player.getLocation());
-		
-		msg(GREEN, "Point ", AQUA, this.traveller().get().size(), GREEN, " has been set.");
-		
+		msg(GREEN, "Point ", AQUA, this.getTraveller().size(), GREEN, " has been set.");
 	}
 	
 }

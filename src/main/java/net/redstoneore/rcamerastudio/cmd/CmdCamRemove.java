@@ -1,6 +1,6 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-public class CmdCamRemove extends CameraStudioCommand<CmdCamRemove> {
+public class CmdCamRemove extends CameraStudioPlayerCommand<CmdCamRemove> {
 
 	private static CmdCamRemove instance = new CmdCamRemove();
 	public static CmdCamRemove get() { return instance; }
@@ -14,25 +14,25 @@ public class CmdCamRemove extends CameraStudioCommand<CmdCamRemove> {
 	
 	@Override
 	public void exec() {
-		if (this.traveller().get().size() == 0) {
+		if (this.getTraveller().size() == 0) {
 			msg(RED, "You don't have any points set yet.");
 			return;
 		}
 		
-		Integer point = this.arg(Integer.class, 0, this.traveller().get().size());
+		Integer point = this.arg(Integer.class, 0, this.getTraveller().size());
 		Integer index = point - 1;
 		
-		if (this.traveller().get().size() < index) {
-			msg(RED + "You only have ", AQUA, this.traveller().get().size(), RED, " points.");
+		if (this.getTraveller().size() < index) {
+			msg(RED, "Can't remove point", AQUA, index, RED, ". You only have ", AQUA, this.getTraveller().size(), RED, " points.");
 			return;
 		}
 		
-		this.traveller().get().remove(index);
+		this.getTraveller().remove(index);
 		
-		if (this.traveller().get().size() == 0) {
+		if (this.getTraveller().size() == 0) {
 			msg(GREEN, "All your points have been removed.");
 		} else {
-			msg(GREEN, "Point ", AQUA, point, GREEN, " of ", AQUA, this.traveller().get().size(), GREEN, " has been removed.");
+			msg(GREEN, "Point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().size(), GREEN, " has been removed.");
 		}
 	}
 

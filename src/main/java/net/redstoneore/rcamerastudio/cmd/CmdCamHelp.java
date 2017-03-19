@@ -29,8 +29,6 @@ public class CmdCamHelp extends CameraStudioCommand<CmdCamHelp> {
 			line.append("  "+WHITE + cmd.description());
 			
 			msg(line.toString());
-			
-
 		}
 		
 		msg(DARK_AQUA, " [ ------------------------------------------- ]");

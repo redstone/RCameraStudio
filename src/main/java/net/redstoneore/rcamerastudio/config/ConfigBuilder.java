@@ -1,0 +1,34 @@
+package net.redstoneore.rcamerastudio.config;
+
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import net.redstoneore.rcamerastudio.bukkit.RCameraStudioBukkit;
+import net.redstoneore.rson.Rson;
+
+public class ConfigBuilder extends Rson<Config> {
+
+	protected static transient Path configPath = Paths.get(RCameraStudioBukkit.get().getDataFolder().toString(), "config.json");
+	
+	private static transient Config instance = null;
+	
+	public static Config get() {
+		if (instance == null)  {
+			try {
+				instance = ConfigBuilder.build()
+					.setup(configPath, Charset.defaultCharset())
+					.load()
+					.save();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return instance;
+	}
+	
+	public static Config build() {
+		return new Config();
+	};
+	
+}

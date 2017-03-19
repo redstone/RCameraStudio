@@ -1,4 +1,4 @@
 name: RCameraStudio
-main: net.redstoneore.rcamerastudio.RCameraStudio
+main: net.redstoneore.rcamerastudio.bukkit.RCameraStudioBukkit
 authors: [MarkehMe, chrismin13, CrushredPixel]
 version: ${version}

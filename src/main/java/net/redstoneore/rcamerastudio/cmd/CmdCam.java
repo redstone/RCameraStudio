@@ -25,7 +25,8 @@ public class CmdCam extends CameraStudioCommand<CmdCam> {
 			CmdCamLoad.get(),
 			CmdCamReplay.get(),
 			CmdCamReplays.get(),
-			CmdCamHelp.get()
+			CmdCamHelp.get(),
+			CmdCamReload.get()
 		);
 	}
 	

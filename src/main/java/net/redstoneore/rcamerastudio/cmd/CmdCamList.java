@@ -1,10 +1,9 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-import org.bukkit.Location;
-
+import net.redstoneore.rcamerastudio.Loc;
 import net.redstoneore.rcamerastudio.Util;
 
-public class CmdCamList extends CameraStudioCommand<CmdCamList> {
+public class CmdCamList extends CameraStudioPlayerCommand<CmdCamList> {
 
 	private static CmdCamList instance = new CmdCamList();
 	public static CmdCamList get() { return instance; }
@@ -16,13 +15,13 @@ public class CmdCamList extends CameraStudioCommand<CmdCamList> {
 	
 	@Override
 	public void exec() {
-		if (this.traveller().get().size() == 0) {
+		if (this.getTraveller().size() == 0) {
 			msg(RED, "You don't have any points set yet.");
 			return;
 		}
 
 		int pointNo = 1;
-		for (Location loc : this.traveller().get().getAll()) {
+		for (Loc loc : this.getTraveller().getAll()) {
 			Double x = Util.round(loc.getX(), 1);
 			Double y = Util.round(loc.getX(), 1);
 			Double z = Util.round(loc.getX(), 1);

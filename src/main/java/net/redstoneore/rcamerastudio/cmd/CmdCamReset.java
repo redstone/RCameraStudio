@@ -1,6 +1,6 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-public class CmdCamReset extends CameraStudioCommand<CmdCamReset> {
+public class CmdCamReset extends CameraStudioPlayerCommand<CmdCamReset> {
 
 	private static CmdCamReset instance = new CmdCamReset();
 	public static CmdCamReset get() { return instance; }
@@ -12,7 +12,7 @@ public class CmdCamReset extends CameraStudioCommand<CmdCamReset> {
 
 	@Override
 	public void exec() {
-		this.traveller().get().clear();
+		this.getTraveller().clear();
 		msg(GREEN, "Successfully removed all points");
 	}
 	

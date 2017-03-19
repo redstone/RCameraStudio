@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import net.redstoneore.rcamerastudio.Traveller;
 
 public abstract class CameraStudioCommand<T> {
@@ -16,37 +12,37 @@ public abstract class CameraStudioCommand<T> {
 	// CONSTANTS
 	// -------------------------------------------------- // 
 
-	protected static final ChatColor BLACK = ChatColor.BLACK;
-	protected static final ChatColor DARK_GRAY = ChatColor.DARK_GRAY;
-	protected static final ChatColor GRAY = ChatColor.GRAY;
-	protected static final ChatColor WHITE = ChatColor.WHITE;
+	protected static final String BLACK = new String(new char[] {'\u00A7', '0'});
+	protected static final String DARK_GRAY = new String(new char[] {'\u00A7', '8'});
+	protected static final String GRAY = new String(new char[] {'\u00A7', '7'});
+	protected static final String WHITE = new String(new char[] {'\u00A7', 'f'});
 
-	protected static final ChatColor DARK_RED = ChatColor.DARK_RED;
-	protected static final ChatColor RED = ChatColor.RED;
+	protected static final String DARK_RED = new String(new char[] {'\u00A7', '4'});
+	protected static final String RED = new String(new char[] {'\u00A7', 'c'});
 
-	protected static final ChatColor DARK_GREEN = ChatColor.DARK_GREEN;
-	protected static final ChatColor GREEN = ChatColor.GREEN;
+	protected static final String DARK_GREEN = new String(new char[] {'\u00A7', '2'});
+	protected static final String GREEN = new String(new char[] {'\u00A7', 'a'});
 
-	protected static final ChatColor BLUE = ChatColor.BLUE;
-	protected static final ChatColor DARK_BLUE = ChatColor.DARK_BLUE;
+	protected static final String BLUE = new String(new char[] {'\u00A7', '9'});
+	protected static final String DARK_BLUE = new String(new char[] {'\u00A7', '1'});
 
-	protected static final ChatColor AQUA = ChatColor.AQUA;
-	protected static final ChatColor DARK_AQUA = ChatColor.DARK_AQUA;
+	protected static final String AQUA = new String(new char[] {'\u00A7', 'b'});
+	protected static final String DARK_AQUA = new String(new char[] {'\u00A7', '3'});
 
-	protected static final ChatColor DARK_PURPLE = ChatColor.DARK_PURPLE;
-	protected static final ChatColor LIGHT_PURPLE = ChatColor.LIGHT_PURPLE;
+	protected static final String DARK_PURPLE = new String(new char[] {'\u00A7', '5'});
+	protected static final String LIGHT_PURPLE = new String(new char[] {'\u00A7', 'd'});
 	
-	protected static final ChatColor GOLD = ChatColor.GOLD;
-	protected static final ChatColor YELLOW = ChatColor.YELLOW;
+	protected static final String GOLD = new String(new char[] {'\u00A7', '6'});
+	protected static final String YELLOW = new String(new char[] {'\u00A7', 'e'});
 	
-	protected static final ChatColor BOLD = ChatColor.BOLD;
-	protected static final ChatColor ITALIC = ChatColor.ITALIC;
-	protected static final ChatColor UNDERLINE = ChatColor.UNDERLINE;
-	protected static final ChatColor STRIKETHROUGH = ChatColor.STRIKETHROUGH;
+	protected static final String BOLD = new String(new char[] {'\u00A7', 'l'});
+	protected static final String ITALIC = new String(new char[] {'\u00A7', 'o'});
+	protected static final String UNDERLINE = new String(new char[] {'\u00A7', 'n'});
+	protected static final String STRIKETHROUGH = new String(new char[] {'\u00A7', 'm'});
 
-	protected static final ChatColor MAGIC = ChatColor.MAGIC;
+	protected static final String MAGIC = new String(new char[] {'\u00A7', 'k'});
 
-	protected static final ChatColor RESET = ChatColor.RESET;
+	protected static final String RESET = new String(new char[] {'\u00A7', 'r'});
 
 	// -------------------------------------------------- //
 	// FIELDS
@@ -135,12 +131,12 @@ public abstract class CameraStudioCommand<T> {
 		return Optional.of(this.parent);
 	}
 	
-	protected void preExec(CommandSender sender, List<String> arguments) {
+	public void preExec(Traveller traveller, List<String> arguments) {
 		this.arguments = arguments;
-		this.sender = sender;
+		this.traveller = traveller;
 		
 		// Check permission
-		if (this.permission().isPresent() && !sender.hasPermission(this.permission().get())) {
+		if (this.permission().isPresent() && !traveller.hasPermission(this.permission().get())) {
 			msg(RED, "You do not have permission to use this command.");
 			return;
 		}
@@ -167,7 +163,7 @@ public abstract class CameraStudioCommand<T> {
 					if(alias.equalsIgnoreCase(potentialCommand)) {
 						arguments.remove(0);
 						command.parent = this;
-						command.preExec(sender, arguments);
+						command.preExec(traveller, arguments);
 						return;
 					}
 				}
@@ -183,7 +179,7 @@ public abstract class CameraStudioCommand<T> {
 	// -------------------------------------------------- // 
 
 	private List<String> arguments = new ArrayList<String>();
-	private CommandSender sender = null;
+	private Traveller traveller = null;
 	
 	// -------------------------------------------------- //
 	// RUNTIME METHODS
@@ -197,23 +193,14 @@ public abstract class CameraStudioCommand<T> {
 			sb.append(msgPart.toString());
 		}
 		
-		this.sender().sendMessage(sb.toString());
+		this.traveller.msg(sb.toString());
 		
 		return (T) this;
 	}
-	public CommandSender sender() {
-		return this.sender;
-	}
-	
-	public Optional<Player> player() {
-		if (!(this.sender() instanceof Player)) {
-			return Optional.empty();
-		}
-		return Optional.of((Player) this.sender());
-	}
 	
 	public Optional<Traveller> traveller() {
-		return Optional.of(Traveller.get(this.player().orElse(null)));
+		if (this.traveller == null) return Optional.empty();
+		return Optional.of(this.traveller);
 	}
 	
 	public List<String> args() {

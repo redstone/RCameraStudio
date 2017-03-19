@@ -3,7 +3,7 @@ package net.redstoneore.rcamerastudio.cmd;
 import net.redstoneore.rcamerastudio.replay.Replay;
 import net.redstoneore.rcamerastudio.replay.Replays;
 
-public class CmdCamSave extends CameraStudioCommand<CmdCamSave> {
+public class CmdCamSave extends CameraStudioPlayerCommand<CmdCamSave> {
 
 	private static CmdCamSave instance = new CmdCamSave();
 	public static CmdCamSave get() { return instance; }
@@ -24,12 +24,12 @@ public class CmdCamSave extends CameraStudioCommand<CmdCamSave> {
 		try {
 			if (Replays.get(name).isPresent()) {
 				Replay replay = Replays.get(name).get();
-				replay.points = this.traveller().get().getAll();
+				replay.points = this.getTraveller().getAll();
 				replay.save();
 				msg(GREEN, "Replay ", AQUA, name, GREEN, " updated.");
 			} else {
 				Replay replay = Replays.create(name);
-				replay.points = this.traveller().get().getAll();
+				replay.points = this.getTraveller().getAll();
 				replay.save();
 				msg(GREEN, "Created replay ", AQUA, name);
 			}

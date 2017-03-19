@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import net.redstoneore.rcamerastudio.RCameraStudio;
+import net.redstoneore.rcamerastudio.bukkit.RCameraStudioBukkit;
 
 public class Replays {
 
@@ -20,7 +20,7 @@ public class Replays {
 	// -------------------------------------------------- //
 	
 	private static Map<String, Replay> replays = null;
-	private static Path dir = Paths.get(RCameraStudio.get().getDataFolder().toString(), "replays");
+	private static Path dir = Paths.get(RCameraStudioBukkit.get().getDataFolder().toString(), "replays");
 
 	// -------------------------------------------------- //
 	// METHODS
