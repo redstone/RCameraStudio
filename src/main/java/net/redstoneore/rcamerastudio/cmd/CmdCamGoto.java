@@ -13,7 +13,7 @@ public class CmdCamGoto extends CameraStudioPlayerCommand<CmdCamGoto> {
 	
 	@Override
 	public void exec() {
-		if (this.getTraveller().size() == 0) {
+		if (this.getTraveller().countPoints() == 0) {
 			msg(RED, "You don't have any points set yet.");
 			return;
 		}
@@ -24,14 +24,14 @@ public class CmdCamGoto extends CameraStudioPlayerCommand<CmdCamGoto> {
 			return;
 		}
 		
-		if (this.getTraveller().size() < point) {
-			msg(RED, "Point ", AQUA, point, RED, " does not exist, you only have ",  this.getTraveller().size(), " points.");
+		if (this.getTraveller().countPoints() < point) {
+			msg(RED, "Point ", AQUA, point, RED, " does not exist, you only have ",  this.getTraveller().countPoints(), " points.");
 			return;
 		}
 		
 		this.getTraveller().teleport(this.getTraveller().get(point -1));
 		
-		msg(GREEN, "Teleported to point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().size());
+		msg(GREEN, "Teleported to point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().countPoints());
 	}
 
 }

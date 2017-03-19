@@ -47,7 +47,7 @@ public class RCameraStudioBukkit extends JavaPlugin {
 	// Plugin enable
 	@Override
 	public void onEnable() {	
-		Travellers.setImpl(new BukkitTravellers());
+		Travellers.impl(new BukkitTravellers());
 		
 		this.getServer().getPluginManager().registerEvents(BukkitCommandManager.get(), this);
 	}

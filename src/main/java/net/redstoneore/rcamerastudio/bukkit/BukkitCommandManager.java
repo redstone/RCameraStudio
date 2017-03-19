@@ -66,7 +66,7 @@ public class BukkitCommandManager implements Listener {
 				traveller = new BukkitTraveller(null);
 			} else {
 				Player player = (Player) sender;
-				traveller = Travellers.getImpl().get(player.getUniqueId());
+				traveller = Travellers.impl().get(player.getUniqueId());
 			}
 			CmdCam.get().preExec(traveller, args);
 		}

@@ -4,10 +4,18 @@ import java.util.UUID;
 
 public abstract class Travellers {
 
-	private static Travellers impl = null;
-	public static Travellers getImpl() { return impl; }
-	public static void setImpl(Travellers impl) { Travellers.impl = impl; }
+	// -------------------------------------------------- //
+	// INSTANCE & CONSTRUCT
+	// -------------------------------------------------- //
 	
+	private static Travellers impl = null;
+	public static Travellers impl() { return impl; }
+	public static void impl(Travellers newImpl) { impl = newImpl; }
+	
+	// -------------------------------------------------- //
+	// ABSTRACT METHODS
+	// -------------------------------------------------- //
+
 	public abstract Traveller get(UUID uuid);
 	
 }

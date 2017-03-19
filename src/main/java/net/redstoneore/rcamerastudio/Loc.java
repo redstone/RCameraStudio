@@ -9,6 +9,11 @@ import net.redstoneore.rson.Rson;
  */
 public class Loc extends Rson<Loc> {
 	
+	// -------------------------------------------------- //
+	// CONSTRUCT
+	// -------------------------------------------------- //
+
+	// For Rson
 	public Loc() { }
 	
 	public Loc(UUID world, Double x, Double y, Double z, Float yaw, Float pitch) {
@@ -21,6 +26,10 @@ public class Loc extends Rson<Loc> {
 		this.pitch = pitch;
 	}
 	
+	// -------------------------------------------------- //
+	// FIELDS
+	// -------------------------------------------------- //
+	
 	private UUID world;
 	
 	private Double x;
@@ -28,6 +37,10 @@ public class Loc extends Rson<Loc> {
 	private Double z;
 	private Float yaw;
 	private Float pitch;
+	
+	// -------------------------------------------------- //
+	// METHODS
+	// -------------------------------------------------- //
 	
 	public UUID getWorld() {
 		return this.world;

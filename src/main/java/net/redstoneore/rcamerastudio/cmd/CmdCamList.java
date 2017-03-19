@@ -15,13 +15,13 @@ public class CmdCamList extends CameraStudioPlayerCommand<CmdCamList> {
 	
 	@Override
 	public void exec() {
-		if (this.getTraveller().size() == 0) {
+		if (this.getTraveller().countPoints() == 0) {
 			msg(RED, "You don't have any points set yet.");
 			return;
 		}
 
 		int pointNo = 1;
-		for (Loc loc : this.getTraveller().getAll()) {
+		for (Loc loc : this.getTraveller().getPoints()) {
 			Double x = Util.round(loc.getX(), 1);
 			Double y = Util.round(loc.getX(), 1);
 			Double z = Util.round(loc.getX(), 1);

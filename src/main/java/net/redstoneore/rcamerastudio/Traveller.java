@@ -15,9 +15,9 @@ import net.redstoneore.rcamerastudio.replay.Replay;
 
 public abstract class Traveller {
 
-	// --------------------------------------------------
+	// -------------------------------------------------- //
 	// STATIC
-	// --------------------------------------------------
+	// -------------------------------------------------- //
 
 	private static Map<UUID, Traveller> pointsMap = new HashMap<UUID, Traveller>();
 	public static Traveller get(UUID uuid) {
@@ -27,28 +27,29 @@ public abstract class Traveller {
 		return pointsMap.get(uuid);
 	}
 	
-	// --------------------------------------------------
+	// -------------------------------------------------- //
 	// FIELDS
-	// --------------------------------------------------
+	// -------------------------------------------------- //
 		
 	private List<Loc> pointsList = new ArrayList<Loc>();
 	
 	private Boolean travelling = false;
 	
+	// Store these so we can reset them back to their original settings
 	private Boolean prevAllowedFlight = false;
 	private Boolean prevFlying = false;
 	
 	private Loc finishLocation = null;
 	
-	// --------------------------------------------------
+	// -------------------------------------------------- //
 	// METHODS
-	// --------------------------------------------------
+	// -------------------------------------------------- //
 	
 	/**
 	 * Get all locations
 	 * @return a list of locations
 	 */
-	public List<Loc> getAll() {
+	public List<Loc> getPoints() {
 		return this.pointsList;
 	}
 
@@ -56,47 +57,47 @@ public abstract class Traveller {
 	 * Add a point at a location
 	 * @param location
 	 */
-	public void add(Loc location) {
-		this.pointsList.add(location);
+	public void addPoint(Loc point) {
+		this.pointsList.add(point);
 	}
 	
 	/**
 	 * Add point at current location
 	 */
-	public void add() {
-		add(this.getLoc());
+	public void addPoint() {
+		addPoint(this.getLoc());
 	}
 
 	/**
 	 * Get amount of points
 	 * @return amount of points
 	 */
-	public int size() {
+	public int countPoints() {
 		return this.pointsList.size();
 	}
 
 	/**
-	 * Remove a point from the array (index)
+	 * Remove a point (use point number NOT array index)
 	 * @param i
 	 */
-	public void remove(int i) {
-		this.pointsList.remove(i);
+	public void removePoint(int pointNumber) {
+		this.pointsList.remove(pointNumber-1);
 	}
 
 	/**
 	 * Clear all points
 	 */
-	public void clear() {
+	public void clearPoints() {
 		this.pointsList.clear();
 	}
 
 	/**
-	 * Get point at index
+	 * Get point (use point number NOT array index)
 	 * @param i
 	 * @return
 	 */
-	public Loc get(int i) {
-		return this.pointsList.get(i);
+	public Loc get(int pointNumber) {
+		return this.pointsList.get(pointNumber-1);
 	}
 
 	/**
@@ -216,37 +217,43 @@ public abstract class Traveller {
 
 		UUID world = this.getLoc().getWorld();
 
-		for (int i = 0; i < locations.size() - 1; i++) {
-			Loc s = locations.get(i);
-			Loc n = locations.get(i + 1);
-			int t = (travelTimes.get(i)).intValue();
+		for (int i = 0; i < locations.size()-1; i++) {
+			Loc thisPoint = locations.get(i);
+			Loc nextPoint = locations.get(i + 1);
+			int travelPoint = travelTimes.get(i);
 
-			double moveX = n.getX() - s.getX();
-			double moveY = n.getY() - s.getY();
-			double moveZ = n.getZ() - s.getZ();
-			double movePitch = n.getPitch() - s.getPitch();
+			double moveX = nextPoint.getX() - thisPoint.getX();
+			double moveY = nextPoint.getY() - thisPoint.getY();
+			double moveZ = nextPoint.getZ() - thisPoint.getZ();
+			double movePitch = nextPoint.getPitch() - thisPoint.getPitch();
 
-			double yawDiff = Math.abs(n.getYaw() - s.getYaw());
-			double c = 0.0D;
+			double yawDiff = Math.abs(nextPoint.getYaw() - thisPoint.getYaw());
+			double c = 0.0;
 
-			if (yawDiff <= 180.0D) {
-				if (s.getYaw() < n.getYaw()) {
+			if (yawDiff <= 180.0) {
+				if (thisPoint.getYaw() < nextPoint.getYaw()) {
 					c = yawDiff;
 				} else {
 					c = -yawDiff;
 				}
-			} else if (s.getYaw() < n.getYaw()) {
-				c = -(360.0D - yawDiff);
+			} else if (thisPoint.getYaw() < nextPoint.getYaw()) {
+				c = -(360.0 - yawDiff);
 			} else {
-				c = 360.0D - yawDiff;
+				c = 360.0 - yawDiff;
 			}
 
-			double d = c / t;
+			double d = c / travelPoint;
 
-			for (int x = 0; x < t; x++) {
-				Loc l = new Loc(world, s.getX() + moveX / t * x, s.getY() + moveY / t * x,
-						s.getZ() + moveZ / t * x, (float) (s.getYaw() + d * x),
-						(float) (s.getPitch() + movePitch / t * x));
+			for (int x = 0; x < travelPoint; x++) {
+				Loc l = new Loc(
+					world,
+					thisPoint.getX() + moveX / travelPoint * x,
+					thisPoint.getY() + moveY / travelPoint * x,
+					thisPoint.getZ() + moveZ / travelPoint * x,
+					(float) (thisPoint.getYaw() + d * x),
+					(float) (thisPoint.getPitch() + movePitch / travelPoint * x)
+				);
+				
 				tps.add(l);
 			}
 			

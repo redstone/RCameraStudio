@@ -12,9 +12,9 @@ public class CmdCamPoint extends CameraStudioPlayerCommand<CmdCamPoint> {
 
 	@Override
 	public void exec() {
-		this.getTraveller().add(this.getTraveller().getLoc());
+		this.getTraveller().addPoint(this.getTraveller().getLoc());
 		
-		msg(GREEN, "Point ", AQUA, this.getTraveller().size(), GREEN, " has been set.");
+		msg(GREEN, "Point ", AQUA, this.getTraveller().countPoints(), GREEN, " has been set.");
 	}
 	
 }

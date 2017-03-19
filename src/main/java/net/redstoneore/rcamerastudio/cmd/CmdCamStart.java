@@ -34,7 +34,7 @@ public class CmdCamStart extends CameraStudioPlayerCommand<CmdCamStart> {
 			return;
 		}
 		
-		if (this.getTraveller().size() == 0) {
+		if (this.getTraveller().countPoints() == 0) {
 			msg(RED, "There are no points set yet.");
 			return;
 		}

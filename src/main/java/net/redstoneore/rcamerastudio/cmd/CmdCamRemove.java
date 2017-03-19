@@ -14,25 +14,24 @@ public class CmdCamRemove extends CameraStudioPlayerCommand<CmdCamRemove> {
 	
 	@Override
 	public void exec() {
-		if (this.getTraveller().size() == 0) {
+		if (this.getTraveller().countPoints() == 0) {
 			msg(RED, "You don't have any points set yet.");
 			return;
 		}
 		
-		Integer point = this.arg(Integer.class, 0, this.getTraveller().size());
-		Integer index = point - 1;
+		Integer point = this.arg(Integer.class, 0, this.getTraveller().countPoints());
 		
-		if (this.getTraveller().size() < index) {
-			msg(RED, "Can't remove point", AQUA, index, RED, ". You only have ", AQUA, this.getTraveller().size(), RED, " points.");
+		if (this.getTraveller().countPoints() < point) {
+			msg(RED, "Can't remove point", AQUA, point, RED, ". You only have ", AQUA, this.getTraveller().countPoints(), RED, " points.");
 			return;
 		}
 		
-		this.getTraveller().remove(index);
+		this.getTraveller().removePoint(point);
 		
-		if (this.getTraveller().size() == 0) {
-			msg(GREEN, "All your points have been removed.");
+		if (this.getTraveller().countPoints() == 0) {
+			msg(GREEN, "Point ", AQUA, point, GREEN, " removed. You have no points left.");
 		} else {
-			msg(GREEN, "Point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().size(), GREEN, " has been removed.");
+			msg(GREEN, "Point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().countPoints(), GREEN, " has been removed.");
 		}
 	}
 
