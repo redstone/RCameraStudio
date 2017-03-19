@@ -18,8 +18,9 @@ Run `gradle build` in the working directory.
 You can use the player-only command `/cam help` for full instructions. This is a reliable source for the commands, as this plugin is currently under heavy development.
 
 ## Permissions
-These could change. Read the release notes before updating in the future.
+These could change. Read the release notes before updating in the future. Ops can use any command.
 * camerastudio.use - required to use RCameraStudio
 * camerastudio.save - use of `/cam save`
 * camerastudio.load - use of `/cam load`
 * camerastudio.replay - use of replay commands
+* camerastudio.reload - use of reload command 
