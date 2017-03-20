@@ -42,8 +42,9 @@ public class SpongeTraveller extends Traveller {
 	@Override
 	public Loc getLoc() {
 		Location<World> location = this.player.getLocation();
+		Vector3d rotation = this.player.getRotation();
 		
-		Loc loc = new Loc(this.player.getWorld().getUniqueId(), location.getX(), location.getY(), location.getZ(), (float) this.player.getHeadRotation().getX(), (float) this.player.getHeadRotation().getY());
+		Loc loc = new Loc(this.player.getWorld().getUniqueId(), location.getX(), location.getY(), location.getZ(), (float) rotation.getY(), (float) rotation.getX());
 		
 		return loc;
 	}
@@ -58,7 +59,7 @@ public class SpongeTraveller extends Traveller {
 		World world = Sponge.getServer().getWorld(loc.getWorld()).get();
 		
 		Location<World> location = new Location<World>(world, loc.getX(), loc.getY(), loc.getZ());
-		Vector3d rotation = new Vector3d().add(loc.getPitch(), loc.getYaw(), 0);
+		Vector3d rotation = new Vector3d((double) loc.getPitch(), (double) loc.getYaw(), 0D);
 		
 		this.player.setLocationAndRotation(location, rotation);
 	}
@@ -87,7 +88,8 @@ public class SpongeTraveller extends Traveller {
 	public void runLater(Runnable task, Long time) {
 		Task.builder()
 			.delayTicks(time)
-			.execute(task);
+			.execute(task)
+			.submit(RCameraStudioSponge.get());
 	}
 
 	@Override

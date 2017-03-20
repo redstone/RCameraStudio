@@ -2,9 +2,7 @@ package net.redstoneore.rcamerastudio.config;
 
 import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import net.redstoneore.rcamerastudio.bukkit.RCameraStudioBukkit;
 import net.redstoneore.rson.Rson;
 
 public class ConfigBuilder extends Rson<Config> {
@@ -27,7 +25,7 @@ public class ConfigBuilder extends Rson<Config> {
 		return instance;
 	}
 	
-	public static Config build() {
+	protected static Config build() {
 		return new Config();
 	};
 	

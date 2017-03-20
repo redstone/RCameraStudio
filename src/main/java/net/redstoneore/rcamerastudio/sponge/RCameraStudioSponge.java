@@ -17,8 +17,15 @@ import com.google.inject.Inject;
 import net.redstoneore.rcamerastudio.Travellers;
 import net.redstoneore.rcamerastudio.config.ConfigBuilder;
 
-@Plugin(id = "rcamerastudio", name = "RCameraStudio", description = "This plugin gives server owners the ability to control a players camera server-side.")
-public class RCommandStudioSponge {
+@Plugin(
+	id = "rcamerastudio", 
+	name = "RCameraStudio", 
+	description = "This plugin gives server owners the ability to control a players camera server-side."
+)
+public class RCameraStudioSponge {
+	
+	private static RCameraStudioSponge instance;
+	public static RCameraStudioSponge get() { return instance; }
 	
 	@Inject
 	@ConfigDir(sharedRoot = false)
@@ -26,6 +33,8 @@ public class RCommandStudioSponge {
 	
 	@Listener
 	public void onServerStart(GameStartedServerEvent event) {
+		instance = this;
+		
 		ConfigBuilder.configPath = Paths.get(configDir.toString(), "config.json");
 		
 		Travellers.impl(new SpongeTravellers());
@@ -36,6 +45,10 @@ public class RCommandStudioSponge {
 				.build();
 
 		Sponge.getCommandManager().register(this, camCommandSpec, "cam", "camerastudio");
+	}
+	
+	public Path getConfigDir() {
+		return this.configDir;
 	}
 	
 }
