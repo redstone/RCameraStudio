@@ -15,6 +15,8 @@ import com.flowpowered.math.vector.Vector3d;
 
 import net.redstoneore.rcamerastudio.Loc;
 import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.rtext.RText;
+import net.redstoneore.rcamerastudio.rtext.RTextSponge;
 
 public class SpongeTraveller extends Traveller {
 
@@ -50,8 +52,9 @@ public class SpongeTraveller extends Traveller {
 	}
 
 	@Override
-	public void msg(String msg) {
-		this.cmdSrc.sendMessage(Text.of(msg));
+	public void msg(RText msg) {
+		RTextSponge sRText = (RTextSponge) msg;
+		this.cmdSrc.sendMessage(sRText.textBuilder.build());
 	}
 
 	@Override

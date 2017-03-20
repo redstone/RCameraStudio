@@ -1,5 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
+
 public class CmdCamGoto extends CameraStudioPlayerCommand<CmdCamGoto> {
 
 	private static CmdCamGoto instance = new CmdCamGoto();
@@ -14,24 +17,39 @@ public class CmdCamGoto extends CameraStudioPlayerCommand<CmdCamGoto> {
 	@Override
 	public void exec() {
 		if (this.getTraveller().countPoints() == 0) {
-			msg(RED, "You don't have any points set yet.");
+			this.msg(RText.of("You don't have any points set yet.").colour(RColour.impl().RED));
 			return;
 		}
 		
 		Integer point = this.arg(Integer.class, 0, null);
 		if (point == null || point < 1) {
-			msg(RED, this.arg(String.class, 0, "?"), " is not a valid number.");
+			this.msg(RText.of(this.arg(String.class, 0, "?"), " is not a valid number.").colour(RColour.impl().RED));
 			return;
 		}
 		
 		if (this.getTraveller().countPoints() < point) {
-			msg(RED, "Point ", AQUA, point, RED, " does not exist, you only have ",  this.getTraveller().countPoints(), " points.");
+			this.msg(RText.of("Point ").colour(RColour.impl().RED).then(
+				RText.of(point).colour(RColour.impl().AQUA).then(
+					RText.of(" does not exist, you only have ").colour(RColour.impl().RED).then(
+						RText.of(this.getTraveller().countPoints()).colour(RColour.impl().AQUA).then(
+							RText.of(" points.").colour(RColour.impl().RED)
+						)
+					)
+				)
+			));
+			
 			return;
 		}
 		
 		this.getTraveller().teleport(this.getTraveller().get(point -1));
 		
-		msg(GREEN, "Teleported to point ", AQUA, point, GREEN, " of ", AQUA, this.getTraveller().countPoints());
+		this.msg(RText.of("Teleported to point ").colour(RColour.impl().GREEN).then(
+			RText.of(point).colour(RColour.impl().AQUA).then(
+				RText.of(" of ").colour(RColour.impl().RED).then(
+					RText.of(this.getTraveller().countPoints()).colour(RColour.impl().AQUA)
+				)
+			)
+		));
 	}
 
 }

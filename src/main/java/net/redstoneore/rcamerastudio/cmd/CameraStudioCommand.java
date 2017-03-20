@@ -5,35 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public abstract class CameraStudioCommand<T> {
 
 	// -------------------------------------------------- //
 	// CONSTANTS
 	// -------------------------------------------------- // 
-
-	protected static final String BLACK = new String(new char[] {'\u00A7', '0'});
-	protected static final String DARK_GRAY = new String(new char[] {'\u00A7', '8'});
-	protected static final String GRAY = new String(new char[] {'\u00A7', '7'});
-	protected static final String WHITE = new String(new char[] {'\u00A7', 'f'});
-
-	protected static final String DARK_RED = new String(new char[] {'\u00A7', '4'});
-	protected static final String RED = new String(new char[] {'\u00A7', 'c'});
-
-	protected static final String DARK_GREEN = new String(new char[] {'\u00A7', '2'});
-	protected static final String GREEN = new String(new char[] {'\u00A7', 'a'});
-
-	protected static final String BLUE = new String(new char[] {'\u00A7', '9'});
-	protected static final String DARK_BLUE = new String(new char[] {'\u00A7', '1'});
-
-	protected static final String AQUA = new String(new char[] {'\u00A7', 'b'});
-	protected static final String DARK_AQUA = new String(new char[] {'\u00A7', '3'});
-
-	protected static final String DARK_PURPLE = new String(new char[] {'\u00A7', '5'});
-	protected static final String LIGHT_PURPLE = new String(new char[] {'\u00A7', 'd'});
-	
-	protected static final String GOLD = new String(new char[] {'\u00A7', '6'});
-	protected static final String YELLOW = new String(new char[] {'\u00A7', 'e'});
 	
 	protected static final String BOLD = new String(new char[] {'\u00A7', 'l'});
 	protected static final String ITALIC = new String(new char[] {'\u00A7', 'o'});
@@ -137,20 +116,27 @@ public abstract class CameraStudioCommand<T> {
 		
 		// Check permission
 		if (this.permission().isPresent() && !traveller.hasPermission(this.permission().get())) {
-			msg(RED, "You do not have permission to use this command.");
+			msg(RText.of("You do not have permission to use this command").colour(RColour.impl().RED));
 			return;
 		}
 		
 		// Check arguments
-		if (!this.reqArg().isEmpty() && this.reqArg().size() < arguments.size()) {
-			msg(RED, "Missing arguments.");
+		if (!this.reqArg().isEmpty() && arguments.size() < this.reqArg().size()) {
+			
+			msg(RText.of("Missing arguments.").colour(RColour.impl().RED));
 			
 			StringBuilder usage = new StringBuilder();
-			usage.append("/cam");
+			usage.append("/cam " + this.aliases.get(0));
 			for (String reqArg : this.reqArg()) {
 				usage.append(" <" + reqArg + ">");
 			}
-			msg(RED, "Usage: ", AQUA, usage.toString());
+			
+			RText usageText = RText.of("Usage: ").colour(RColour.impl().RED).then(
+				RText.of(usage.toString()).colour(RColour.impl().AQUA)
+			);
+			
+			msg(usageText);
+			
 			return;
 		}
 		
@@ -186,14 +172,8 @@ public abstract class CameraStudioCommand<T> {
 	// -------------------------------------------------- // 
 
 	@SuppressWarnings("unchecked")
-	public T msg(Object... msgParts) {
-		StringBuilder sb = new StringBuilder();
-		
-		for (Object msgPart : msgParts) {
-			sb.append(msgPart.toString());
-		}
-		
-		this.traveller.msg(sb.toString());
+	public T msg(RText message) {		
+		this.traveller.msg(message);
 		
 		return (T) this;
 	}

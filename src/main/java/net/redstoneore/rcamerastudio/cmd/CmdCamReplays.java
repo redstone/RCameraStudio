@@ -2,6 +2,8 @@ package net.redstoneore.rcamerastudio.cmd;
 
 import net.redstoneore.rcamerastudio.replay.Replay;
 import net.redstoneore.rcamerastudio.replay.Replays;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public class CmdCamReplays extends CameraStudioCommand<CmdCamReplays> {
 	
@@ -17,15 +19,15 @@ public class CmdCamReplays extends CameraStudioCommand<CmdCamReplays> {
 	@Override
 	public void exec() {
 		if (Replays.all().isEmpty()) {
-			msg(RED, "There are no saved replays.");
+			this.msg(RText.of("There are no saved replays.").colour(RColour.impl().RED));
 			return;
 		}
 		
-		msg(WHITE, BOLD, "Existing: Replays:");
+		this.msg(RText.of("Replays:").colour(RColour.impl().WHITE));
+
 		for (Replay replay : Replays.all()) {
-			msg(WHITE, " - " + replay.name);
+			this.msg(RText.of(" - ", replay.name).colour(RColour.impl().WHITE));
 		}
-		msg(" ");
 	}
 	
 }

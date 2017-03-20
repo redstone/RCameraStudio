@@ -16,6 +16,10 @@ import com.google.inject.Inject;
 
 import net.redstoneore.rcamerastudio.Travellers;
 import net.redstoneore.rcamerastudio.config.ConfigBuilder;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RColourSponge;
+import net.redstoneore.rcamerastudio.rtext.RText;
+import net.redstoneore.rcamerastudio.rtext.RTextSponge;
 
 @Plugin(
 	id = "rcamerastudio", 
@@ -37,6 +41,8 @@ public class RCameraStudioSponge {
 		
 		ConfigBuilder.configPath = Paths.get(configDir.toString(), "config.json");
 		
+		RText.impl(new RTextSponge());
+		RColour.impl(new RColourSponge());
 		Travellers.impl(new SpongeTravellers());
 		
 		CommandSpec camCommandSpec = CommandSpec.builder()

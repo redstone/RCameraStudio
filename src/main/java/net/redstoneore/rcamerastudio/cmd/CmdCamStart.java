@@ -2,6 +2,8 @@ package net.redstoneore.rcamerastudio.cmd;
 
 import net.redstoneore.rcamerastudio.Util;
 import net.redstoneore.rcamerastudio.config.Config;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public class CmdCamStart extends CameraStudioPlayerCommand<CmdCamStart> {
 	
@@ -23,19 +25,19 @@ public class CmdCamStart extends CameraStudioPlayerCommand<CmdCamStart> {
 		try {
 			time =  Util.parseTimeString(this.arg(String.class, 0, Config.get().defaultTime));
 		} catch (Exception e) {
-			msg(RED, "Format of that time was incorrect.");
+			this.msg(RText.of("Format of that time was incorrect.").colour(RColour.impl().RED));
 			return;
 		}
 		
 		Boolean silent = this.arg(Boolean.class, 1, false);
 		
 		if (this.getTraveller().travelling()) {
-			msg(RED, "You are already travelling");
+			this.msg(RText.of("Your are already travelling.").colour(RColour.impl().RED));
 			return;
 		}
 		
 		if (this.getTraveller().countPoints() == 0) {
-			msg(RED, "There are no points set yet.");
+			this.msg(RText.of("There are no points set.").colour(RColour.impl().RED));
 			return;
 		}
 		

@@ -25,6 +25,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.redstoneore.rcamerastudio.Travellers;
 import net.redstoneore.rcamerastudio.config.ConfigBuilder;
+import net.redstoneore.rcamerastudio.rtext.RColourBukkit;
+import net.redstoneore.rcamerastudio.rtext.RText;
+import net.redstoneore.rcamerastudio.rtext.RTextBukkit;
+import net.redstoneore.rcamerastudio.rtext.RColour;
 
 public class RCameraStudioBukkit extends JavaPlugin {
 	
@@ -45,6 +49,8 @@ public class RCameraStudioBukkit extends JavaPlugin {
 	public void onEnable() {	
 		ConfigBuilder.configPath = Paths.get(this.getDataFolder().toString(), "config.json");
 		
+		RText.impl(new RTextBukkit());
+		RColour.impl(new RColourBukkit());
 		Travellers.impl(new BukkitTravellers());
 		
 		this.getServer().getPluginManager().registerEvents(BukkitCommandManager.get(), this);

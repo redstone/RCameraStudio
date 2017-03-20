@@ -1,6 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
 import net.redstoneore.rcamerastudio.config.Config;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public class CmdCamReload extends CameraStudioCommand<CmdCamReload> {
 
@@ -19,11 +21,11 @@ public class CmdCamReload extends CameraStudioCommand<CmdCamReload> {
 			Config.get().load();
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg(RED, "Failed to reload the config.json");
+			this.msg(RText.of("Failed to reload the config.json file").colour(RColour.impl().RED));
 			return;
 		}
 		
-		msg(GREEN, "Configuration reloaded!");		
+		this.msg(RText.of("Configuration reloaded!").colour(RColour.impl().GREEN));
 	}
 
 }

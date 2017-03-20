@@ -1,6 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
 import net.redstoneore.rcamerastudio.replay.Replays;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public class CmdCamLoad extends CameraStudioPlayerCommand<CmdCamLoad> {
 
@@ -21,13 +23,12 @@ public class CmdCamLoad extends CameraStudioPlayerCommand<CmdCamLoad> {
 		String name = this.arg(String.class, 0, null);
 		
 		if (!Replays.get(name).isPresent()) {
-			msg(RED, name + " is not an existing save.");
+			this.msg(RText.of(name, " is not an existing replay.").colour(RColour.impl().RED));
 			return;
 		}
 		
 		this.getTraveller().set(Replays.get(name));
-		msg(GREEN, name + " loaded!");
-
+		this.msg(RText.of(name, " loaded!").colour(RColour.impl().GREEN));
 	}
 	
 }

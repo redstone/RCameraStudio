@@ -1,6 +1,9 @@
 package net.redstoneore.rcamerastudio.cmd;
 
-public class CmdCamStop extends CameraStudioCommand<CmdCamStop> {
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
+
+public class CmdCamStop extends CameraStudioPlayerCommand<CmdCamStop> {
 
 	private static CmdCamStop instance = new CmdCamStop();
 	public static CmdCamStop get() { return instance;}
@@ -12,8 +15,13 @@ public class CmdCamStop extends CameraStudioCommand<CmdCamStop> {
 
 	@Override
 	public void exec() {
-		this.traveller().get().travelling(false);
-		msg(GREEN, "Travelling has been cancelled");
+		
+		if (this.getTraveller().travelling()) {
+			this.getTraveller().travelling(false);
+			this.msg(RText.of("Travelling has been stopped.").colour(RColour.impl().GREEN));			
+		} else {
+			this.msg(RText.of("You are not travelling.").colour(RColour.impl().RED));
+		}
 	}
 	
 }

@@ -2,6 +2,8 @@ package net.redstoneore.rcamerastudio.cmd;
 
 import net.redstoneore.rcamerastudio.Loc;
 import net.redstoneore.rcamerastudio.Util;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public class CmdCamList extends CameraStudioPlayerCommand<CmdCamList> {
 
@@ -16,7 +18,7 @@ public class CmdCamList extends CameraStudioPlayerCommand<CmdCamList> {
 	@Override
 	public void exec() {
 		if (this.getTraveller().countPoints() == 0) {
-			msg(RED, "You don't have any points set yet.");
+			msg(RText.of("You don't have any points set yet.").colour(RColour.impl().RED));
 			return;
 		}
 
@@ -29,8 +31,15 @@ public class CmdCamList extends CameraStudioPlayerCommand<CmdCamList> {
 			Double yaw = Util.round(loc.getYaw(), 1);
 			Double pitch = Util.round(loc.getPitch(), 1);
 			
-			msg(WHITE, "Point ", AQUA, pointNo, WHITE, ": ", x, ", ", y, ", ", z , 
-				" (", yaw, ", ", pitch, ")");
+			RText pointText = RText.of("Point ").colour(RColour.impl().WHITE);
+			pointText.then(RText.of(pointNo).colour(RColour.impl().AQUA));
+			pointText.then(RText.of(
+				": ", 
+				x, ", ", y, ", ", z , 
+				" (", yaw, ", ", pitch, ")"
+			).colour(RColour.impl().WHITE));
+			
+			this.msg(pointText);
 			
 			pointNo++;
 		}		

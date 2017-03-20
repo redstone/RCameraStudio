@@ -1,5 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
+
 public class CmdCamPoint extends CameraStudioPlayerCommand<CmdCamPoint> {
 
 	private static CmdCamPoint instance = new CmdCamPoint();
@@ -14,7 +17,13 @@ public class CmdCamPoint extends CameraStudioPlayerCommand<CmdCamPoint> {
 	public void exec() {
 		this.getTraveller().addPoint(this.getTraveller().getLoc());
 		
-		msg(GREEN, "Point ", AQUA, this.getTraveller().countPoints(), GREEN, " has been set.");
+		this.msg(
+			RText.of("Point ").colour(RColour.impl().GREEN).then(
+				RText.of(this.getTraveller().countPoints()).colour(RColour.impl().AQUA).then(
+					RText.of(" has been set.").colour(RColour.impl().GREEN)
+				)
+			)
+		);	
 	}
 	
 }

@@ -1,5 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
+
 public class CmdCamReset extends CameraStudioPlayerCommand<CmdCamReset> {
 
 	private static CmdCamReset instance = new CmdCamReset();
@@ -13,7 +16,7 @@ public class CmdCamReset extends CameraStudioPlayerCommand<CmdCamReset> {
 	@Override
 	public void exec() {
 		this.getTraveller().clearPoints();
-		msg(GREEN, "Successfully removed all points");
+		this.msg(RText.of("Successfully removed all points.").colour(RColour.impl().GREEN));
 	}
 	
 }

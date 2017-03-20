@@ -3,6 +3,8 @@ package net.redstoneore.rcamerastudio.cmd;
 import net.redstoneore.rcamerastudio.Util;
 import net.redstoneore.rcamerastudio.replay.Replay;
 import net.redstoneore.rcamerastudio.replay.Replays;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public class CmdCamReplay extends CameraStudioPlayerCommand<CmdCamReplay> {
 
@@ -28,7 +30,7 @@ public class CmdCamReplay extends CameraStudioPlayerCommand<CmdCamReplay> {
 		String replayName = this.arg(String.class, 0, null);
 		
 		if (replayName == null || !Replays.get(replayName).isPresent()) {
-			msg(RED, "Unknown replay ", replayName);
+			this.msg(RText.of("Unknown replay ", replayName).colour(RColour.impl().RED));
 			return;
 		}
 		
@@ -37,9 +39,9 @@ public class CmdCamReplay extends CameraStudioPlayerCommand<CmdCamReplay> {
 		Integer time;
 		
 		try {
-			time =  Util.parseTimeString(this.arg(String.class, 1, "1m30s"));
+			time =  Util.parseTimeString(this.arg(String.class, 1, "1m"));
 		} catch (Exception e) {
-			msg(RED, "Format of that time was incorrect.");
+			this.msg(RText.of("The format of that time was incorrect.").colour(RColour.impl().RED));
 			return;
 		}
 		

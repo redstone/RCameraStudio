@@ -1,5 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
+
 public class CmdCamHelp extends CameraStudioCommand<CmdCamHelp> {
 
 	private static CmdCamHelp instance = new CmdCamHelp();
@@ -11,26 +14,38 @@ public class CmdCamHelp extends CameraStudioCommand<CmdCamHelp> {
 
 	@Override
 	public void exec() {
-		msg(DARK_AQUA, " [ --------------- ", AQUA, "RCameraStudio", DARK_AQUA, " --------------- ]");
+		this.msg(
+			RText.of(" [ --------------- ").colour(RColour.impl().DARK_AQUA).then(
+				RText.of("RCameraStudio").colour(RColour.impl().AQUA).then(
+					RText.of(" --------------- ]").colour(RColour.impl().DARK_AQUA)
+				)
+			)
+		);
 		
-		msg(AQUA, "  /cam  ", WHITE, CmdCam.get().description());
-
+		this.msg(
+			RText.of("  /cam ").colour(RColour.impl().AQUA).then(
+				RText.of(CmdCam.get().description()).colour(RColour.impl().WHITE)
+			)
+		);
+		
 		for (CameraStudioCommand<?> cmd : CmdCam.get().subcommands()) {
-			StringBuilder line = new StringBuilder();
-			line.append(AQUA + "  /cam");
-			line.append(" " + cmd.aliases().get(0));
+			RText line = RText.of("  /cam").colour(RColour.impl().AQUA);
+			
+			line.then(RText.of(" ", cmd.aliases().get(0)).colour(RColour.impl().AQUA));
 			
 			for (String arg : cmd.reqArg()) {
-				line.append(DARK_AQUA + " <" + arg + ">");
+				line.then(RText.of(" <"+arg+">").colour(RColour.impl().DARK_AQUA));
 			}
-			for (String arg : cmd.optArg()) {
-				line.append(GRAY + " [" + arg + "]");
-			}
-			line.append("  "+WHITE + cmd.description());
 			
-			msg(line.toString());
+			for (String arg : cmd.optArg()) {
+				line.then(RText.of(" ["+arg+"]").colour(RColour.impl().GRAY));
+			}
+			
+			line.then(RText.of("  " + cmd.description()).colour(RColour.impl().WHITE));
+			
+			this.msg(line);
 		}
 		
-		msg(DARK_AQUA, " [ ------------------------------------------- ]");
+		this.msg(RText.of(" [ ------------------------------------------- ]").colour(RColour.impl().DARK_AQUA));
 	}
 }

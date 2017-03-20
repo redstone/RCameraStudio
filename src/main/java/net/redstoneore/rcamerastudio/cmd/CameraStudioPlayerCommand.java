@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public abstract class CameraStudioPlayerCommand<T> extends CameraStudioCommand<T> {
 
@@ -14,7 +15,7 @@ public abstract class CameraStudioPlayerCommand<T> extends CameraStudioCommand<T
 	@Override
 	public void preExec(Traveller traveller, List<String> arguments) {
 		if (!traveller.isPlayer()) {
-			msg("This command can only be used by players.");
+			msg(RText.of("This command can only be used by players."));
 			return;
 		}
 		

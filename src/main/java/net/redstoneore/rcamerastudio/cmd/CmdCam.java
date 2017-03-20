@@ -1,5 +1,8 @@
 package net.redstoneore.rcamerastudio.cmd;
 
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
+
 public class CmdCam extends CameraStudioCommand<CmdCam> {
 
 	public static CmdCam instance = new CmdCam();
@@ -32,7 +35,13 @@ public class CmdCam extends CameraStudioCommand<CmdCam> {
 	
 	@Override
 	public void exec() {
-		this.msg(RED, "Invalid usage! Type ", DARK_AQUA, "/cam help", RED, " for usage.");
+		RText message = RText.of("Invalid usage! Type ").colour(RColour.impl().RED).then(
+			RText.of("/cam help").colour(RColour.impl().DARK_AQUA).then(
+				RText.of(" for usage").colour(RColour.impl().RED)
+			)
+		);
+		
+		msg(message);
 	}
 
 }

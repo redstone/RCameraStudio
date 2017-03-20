@@ -12,6 +12,8 @@ import java.util.UUID;
 import net.redstoneore.rcamerastudio.bukkit.BukkitTraveller;
 import net.redstoneore.rcamerastudio.config.Config;
 import net.redstoneore.rcamerastudio.replay.Replay;
+import net.redstoneore.rcamerastudio.rtext.RColour;
+import net.redstoneore.rcamerastudio.rtext.RText;
 
 public abstract class Traveller {
 
@@ -281,14 +283,14 @@ public abstract class Traveller {
 						travelling(false);
 						
 						if (completedMessage != null) {
-							msg(completedMessage);
+							msg(RText.of(completedMessage).colour(RColour.impl().GREEN));
 						}
 					}
 				}
 			}, 1L);
 		} catch (Exception e) {
 			if (failMessage != null) {
-				this.msg(failMessage);
+				msg(RText.of(failMessage).colour(RColour.impl().RED));
 			}
 			e.printStackTrace();
 		}
@@ -315,7 +317,7 @@ public abstract class Traveller {
 	
 	public abstract Loc getLoc();
 	
-	public abstract void msg(String msg);
+	public abstract void msg(RText msg);
 	
 	public abstract void teleport(Loc loc);
 	

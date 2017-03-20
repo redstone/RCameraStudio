@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 
 import net.redstoneore.rcamerastudio.Loc;
 import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.rtext.RText;
+import net.redstoneore.rcamerastudio.rtext.RTextBukkit;
 
 public class BukkitTraveller extends Traveller {
 
@@ -36,14 +38,15 @@ public class BukkitTraveller extends Traveller {
 			location.getPitch()
 		);
 	}
-
+	
 	@Override
-	public void msg(String msg) {
+	public void msg(RText msg) {
+		RTextBukkit rTextBukkit = (RTextBukkit) msg;
 		if (this.player == null) {
-			Bukkit.getConsoleSender().sendMessage(msg);
+			Bukkit.getConsoleSender().sendMessage(rTextBukkit.message.toPlainText());
 			return;
 		}
-		this.player.sendMessage(msg);		
+		this.player.spigot().sendMessage(rTextBukkit.message);
 	}
 
 	@Override
