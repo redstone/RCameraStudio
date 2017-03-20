@@ -3,7 +3,7 @@ package net.redstoneore.rcamerastudio.cmd;
 import java.util.List;
 import java.util.Optional;
 
-import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.api.Traveller;
 import net.redstoneore.rcamerastudio.rtext.RText;
 
 public abstract class CameraStudioPlayerCommand<T> extends CameraStudioCommand<T> {

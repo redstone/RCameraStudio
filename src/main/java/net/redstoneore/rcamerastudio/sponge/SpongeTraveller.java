@@ -14,7 +14,7 @@ import org.spongepowered.api.world.World;
 import com.flowpowered.math.vector.Vector3d;
 
 import net.redstoneore.rcamerastudio.Loc;
-import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.api.Traveller;
 import net.redstoneore.rcamerastudio.rtext.RText;
 import net.redstoneore.rcamerastudio.rtext.RTextSponge;
 

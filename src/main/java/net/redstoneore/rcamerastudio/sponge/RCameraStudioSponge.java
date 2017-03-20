@@ -14,7 +14,7 @@ import org.spongepowered.api.text.Text;
 
 import com.google.inject.Inject;
 
-import net.redstoneore.rcamerastudio.Travellers;
+import net.redstoneore.rcamerastudio.api.Travellers;
 import net.redstoneore.rcamerastudio.config.ConfigBuilder;
 import net.redstoneore.rcamerastudio.rtext.RColour;
 import net.redstoneore.rcamerastudio.rtext.RColourSponge;

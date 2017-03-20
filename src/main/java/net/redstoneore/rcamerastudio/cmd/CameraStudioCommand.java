@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.api.Traveller;
 import net.redstoneore.rcamerastudio.rtext.RColour;
 import net.redstoneore.rcamerastudio.rtext.RText;
 

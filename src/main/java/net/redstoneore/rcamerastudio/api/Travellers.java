@@ -1,4 +1,4 @@
-package net.redstoneore.rcamerastudio;
+package net.redstoneore.rcamerastudio.api;
 
 import java.util.UUID;
 

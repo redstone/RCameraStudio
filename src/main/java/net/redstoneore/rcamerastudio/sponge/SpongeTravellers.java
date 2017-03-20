@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import net.redstoneore.rcamerastudio.Traveller;
-import net.redstoneore.rcamerastudio.Travellers;
+import net.redstoneore.rcamerastudio.api.Traveller;
+import net.redstoneore.rcamerastudio.api.Travellers;
 
 public class SpongeTravellers extends Travellers {
 	

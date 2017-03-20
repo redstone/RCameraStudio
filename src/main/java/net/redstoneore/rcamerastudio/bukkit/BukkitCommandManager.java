@@ -13,8 +13,8 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 import com.google.common.collect.Lists;
 
-import net.redstoneore.rcamerastudio.Traveller;
-import net.redstoneore.rcamerastudio.Travellers;
+import net.redstoneore.rcamerastudio.api.Traveller;
+import net.redstoneore.rcamerastudio.api.Travellers;
 import net.redstoneore.rcamerastudio.cmd.CmdCam;
 import net.redstoneore.rcamerastudio.config.Config;
 

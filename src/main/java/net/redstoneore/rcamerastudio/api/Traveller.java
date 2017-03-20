@@ -1,15 +1,12 @@
-package net.redstoneore.rcamerastudio;
+package net.redstoneore.rcamerastudio.api;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-
-import net.redstoneore.rcamerastudio.bukkit.BukkitTraveller;
+import net.redstoneore.rcamerastudio.Loc;
 import net.redstoneore.rcamerastudio.config.Config;
 import net.redstoneore.rcamerastudio.replay.Replay;
 import net.redstoneore.rcamerastudio.rtext.RColour;
@@ -17,18 +14,6 @@ import net.redstoneore.rcamerastudio.rtext.RText;
 
 public abstract class Traveller {
 
-	// -------------------------------------------------- //
-	// STATIC
-	// -------------------------------------------------- //
-
-	private static Map<UUID, Traveller> pointsMap = new HashMap<UUID, Traveller>();
-	public static Traveller get(UUID uuid) {
-		if (!pointsMap.containsKey(uuid)) {
-			pointsMap.put(uuid, new BukkitTraveller(uuid));
-		}
-		return pointsMap.get(uuid);
-	}
-	
 	// -------------------------------------------------- //
 	// FIELDS
 	// -------------------------------------------------- //

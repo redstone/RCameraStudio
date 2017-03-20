@@ -12,8 +12,8 @@ import org.spongepowered.api.entity.living.player.Player;
 
 import com.google.common.collect.Lists;
 
-import net.redstoneore.rcamerastudio.Traveller;
-import net.redstoneore.rcamerastudio.Travellers;
+import net.redstoneore.rcamerastudio.api.Traveller;
+import net.redstoneore.rcamerastudio.api.Travellers;
 import net.redstoneore.rcamerastudio.cmd.CmdCam;
 
 public class SpongeCommandManager implements CommandExecutor {

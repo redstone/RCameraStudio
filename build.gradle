@@ -10,17 +10,17 @@ repositories {
 	maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
 	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 	maven { url "https://repo.spongepowered.org/maven" }
-	
+
 }
 
 dependencies {
 	compileOnly "org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT"
 	compileOnly "org.bukkit:bukkit:1.11.2-R0.1-SNAPSHOT"
-	
+
 	compileOnly "org.spongepowered:spongeapi:5.1.0"
-	
+
 	compile fileTree(dir: "lib/shadow", include: ["*.jar"])
-	
+
 }
 
 processResources {
@@ -31,10 +31,6 @@ processResources {
         include "mcmod.info"
 
         expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "plugin.yml"
     }
 }
 

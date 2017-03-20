@@ -8,7 +8,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import net.redstoneore.rcamerastudio.Loc;
-import net.redstoneore.rcamerastudio.Traveller;
+import net.redstoneore.rcamerastudio.api.Traveller;
 import net.redstoneore.rcamerastudio.rtext.RText;
 import net.redstoneore.rcamerastudio.rtext.RTextBukkit;
 

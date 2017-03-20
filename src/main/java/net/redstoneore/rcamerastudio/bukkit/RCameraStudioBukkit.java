@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.redstoneore.rcamerastudio.Travellers;
+import net.redstoneore.rcamerastudio.api.Travellers;
 import net.redstoneore.rcamerastudio.config.ConfigBuilder;
 import net.redstoneore.rcamerastudio.rtext.RColourBukkit;
 import net.redstoneore.rcamerastudio.rtext.RText;
